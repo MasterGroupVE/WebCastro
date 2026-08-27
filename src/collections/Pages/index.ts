@@ -1,58 +1,24 @@
-import type { CollectionConfig } from 'payload'
+import { CollectionConfig } from 'payload'
+// Importa tus bloques
+import { HeroBlock } from './blocks/Hero'
+import { AboutUsBlock } from './blocks/AboutUs'
+import { ServicesBlock } from './blocks/Services'
+import { ProjectsBlock } from './blocks/Projects'
+import { ContactBlock } from './blocks/Contact'
+import { SliderBlock } from './blocks/Slider'
+import { TestimonialsBlock } from './blocks/Testimonials'
+import { CtaBannerBlock } from './blocks/CtaBanner'
+import { FeaturesBlock } from './blocks/Features'
+import { FaqBlock } from './blocks/Faq'
+import { PostsGridBlock } from './blocks/PostsGrid'
 
-import { authenticated } from '../../access/authenticated'
-import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
-import { Archive } from '../../blocks/ArchiveBlock/config'
-import { CallToAction } from '../../blocks/CallToAction/config'
-import { Content } from '../../blocks/Content/config'
-import { FormBlock } from '../../blocks/Form/config'
-import { MediaBlock } from '../../blocks/MediaBlock/config'
-import { hero } from '@/heros/config'
-import { slugField } from 'payload'
-import { populatePublishedAt } from '../../hooks/populatePublishedAt'
-import { generatePreviewPath } from '../../utilities/generatePreviewPath'
-import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
-
-import {
-  MetaDescriptionField,
-  MetaImageField,
-  MetaTitleField,
-  OverviewField,
-  PreviewField,
-} from '@payloadcms/plugin-seo/fields'
-
-export const Pages: CollectionConfig<'pages'> = {
+const Pages: CollectionConfig = {
   slug: 'pages',
-  access: {
-    create: authenticated,
-    delete: authenticated,
-    read: authenticatedOrPublished,
-    update: authenticated,
-  },
-  // This config controls what's populated by default when a page is referenced
-  // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
-  // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'pages'>
-  defaultPopulate: {
-    title: true,
-    slug: true,
-  },
   admin: {
-    defaultColumns: ['title', 'slug', 'updatedAt'],
-    livePreview: {
-      url: ({ data, req }) =>
-        generatePreviewPath({
-          slug: data?.slug,
-          collection: 'pages',
-          req,
-        }),
-    },
-    preview: (data, { req }) =>
-      generatePreviewPath({
-        slug: data?.slug as string,
-        collection: 'pages',
-        req,
-      }),
     useAsTitle: 'title',
+  },
+  access: {
+    read: () => true, // Permitir lectura pública
   },
   fields: [
     {
@@ -61,76 +27,35 @@ export const Pages: CollectionConfig<'pages'> = {
       required: true,
     },
     {
-      type: 'tabs',
-      tabs: [
-        {
-          fields: [hero],
-          label: 'Hero',
-        },
-        {
-          fields: [
-            {
-              name: 'layout',
-              type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
-              required: true,
-              admin: {
-                initCollapsed: true,
-              },
-            },
-          ],
-          label: 'Content',
-        },
-        {
-          name: 'meta',
-          label: 'SEO',
-          fields: [
-            OverviewField({
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-              imagePath: 'meta.image',
-            }),
-            MetaTitleField({
-              hasGenerateFn: true,
-            }),
-            MetaImageField({
-              relationTo: 'media',
-            }),
-
-            MetaDescriptionField({}),
-            PreviewField({
-              // if the `generateUrl` function is configured
-              hasGenerateFn: true,
-
-              // field paths to match the target field for data
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-            }),
-          ],
-        },
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
+      admin: {
+        position: 'sidebar', // Opcional: mover a la barra lateral
+      },
+    },
+    // --- ESTE ES EL CAMPO CLAVE ---
+    {
+      name: 'layout', // Nombre del campo en la base de datos
+      label: 'Estructura de la Página',
+      type: 'blocks', // Tipo Flexible Content
+      blocks: [
+        HeroBlock,
+        AboutUsBlock,
+        ServicesBlock,
+        ProjectsBlock,
+        ContactBlock,
+        SliderBlock,
+        TestimonialsBlock,
+        CtaBannerBlock,
+        FeaturesBlock,
+        FaqBlock,
+        PostsGridBlock,
+        // Agrega aquí el resto de bloques cuando los crees
       ],
     },
-    {
-      name: 'publishedAt',
-      type: 'date',
-      admin: {
-        position: 'sidebar',
-      },
-    },
-    slugField(),
   ],
-  hooks: {
-    afterChange: [revalidatePage],
-    beforeChange: [populatePublishedAt],
-    afterDelete: [revalidateDelete],
-  },
-  versions: {
-    drafts: {
-      autosave: {
-        interval: 100, // We set this interval for optimal live preview
-      },
-      schedulePublish: true,
-    },
-    maxPerDoc: 50,
-  },
-}
+};
+
+export default Pages;

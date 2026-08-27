@@ -77,6 +77,11 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
   const loading = loadingFromProps || (!priority ? 'lazy' : undefined)
 
+  const frameStyle =
+    resource && typeof resource === 'object' && 'frameStyle' in resource
+      ? (resource.frameStyle ?? 'none')
+      : 'none'
+
   // NOTE: this is used by the browser to determine which image to download at different screen sizes
   const sizes = sizeFromProps
     ? sizeFromProps
@@ -88,7 +93,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     <picture className={cn(pictureClassName)}>
       <NextImage
         alt={alt || ''}
-        className={cn(imgClassName)}
+        className={cn(frameStyle !== 'none' && `media-frame-${frameStyle}`, imgClassName)}
         fill={fill}
         height={!fill ? height : undefined}
         placeholder="blur"

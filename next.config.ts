@@ -22,6 +22,9 @@ const nextConfig: NextConfig = {
       {
         pathname: '/api/media/file/**',
       },
+      {
+        pathname: '/logo-de-los-Castro.png',
+      },
     ],
     qualities: [100],
     remotePatterns: [
@@ -46,9 +49,6 @@ const nextConfig: NextConfig = {
   },
   reactStrictMode: true,
   redirects,
-  turbopack: {
-    root: path.resolve(dirname),
-  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })

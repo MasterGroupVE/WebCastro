@@ -1,67 +1,65 @@
-import type { StaticImageData } from 'next/image'
+'use client'
+
+import Image from 'next/image'
+import React from 'react'
 
 import { cn } from '@/utilities/ui'
-import React from 'react'
-import RichText from '@/components/RichText'
 
-import type { MediaBlock as MediaBlockProps } from '@/payload-types'
-
-import { Media } from '../../components/Media'
-
-type Props = MediaBlockProps & {
-  breakout?: boolean
-  captionClassName?: string
+interface MediaBlockProps {
   className?: string
-  enableGutter?: boolean
   imgClassName?: string
-  staticImage?: StaticImageData
+  caption?: string
+  captionClassName?: string
+  media?: {
+    url: string
+    alt?: string
+    frameStyle?: ('none' | 'green-gold' | 'gold-green' | 'green' | 'gold') | null
+    sizes?: {
+      thumbnail?: { url: string }
+      card?: { url: string }
+    }
+  }
   disableInnerContainer?: boolean
+  enableGutter?: boolean
 }
 
-export const MediaBlock: React.FC<Props> = (props) => {
-  const {
-    captionClassName,
-    className,
-    enableGutter = true,
-    imgClassName,
-    media,
-    staticImage,
-    disableInnerContainer,
-  } = props
+export const MediaBlock: React.FC<MediaBlockProps> = ({
+  className,
+  imgClassName,
+  caption,
+  captionClassName,
+  media,
+  disableInnerContainer,
+  enableGutter = true,
+}) => {
+  if (!media?.url) return null
 
-  let caption
-  if (media && typeof media === 'object') caption = media.caption
+  const imageUrl = media.sizes?.card?.url || media.url
+  const alt = media.alt || ''
+  const frameStyle = media.frameStyle && media.frameStyle !== 'none' ? media.frameStyle : null
 
   return (
-    <div
-      className={cn(
-        '',
-        {
-          container: enableGutter,
-        },
-        className,
-      )}
-    >
-      {(media || staticImage) && (
-        <Media
-          imgClassName={cn('border border-border rounded-[0.8rem]', imgClassName)}
-          resource={media}
-          src={staticImage}
+    <figure className={cn('my-8', disableInnerContainer ? '' : 'max-w-[48rem] mx-auto', className)}>
+      <div
+        className={cn(
+          'relative aspect-video rounded-xl overflow-hidden',
+          frameStyle && `media-frame-${frameStyle} m-3`,
+          imgClassName,
+        )}
+      >
+        <Image
+          src={imageUrl}
+          alt={alt}
+          fill
+          className="object-cover"
+          sizes="100vw"
         />
-      )}
+      </div>
       {caption && (
-        <div
-          className={cn(
-            'mt-6',
-            {
-              container: !disableInnerContainer,
-            },
-            captionClassName,
-          )}
-        >
-          <RichText data={caption} enableGutter={false} />
-        </div>
+        <figcaption className={cn('mt-2 text-center text-sm text-gray-600', captionClassName, enableGutter && 'mx-auto max-w-[48rem]')}>
+          {caption}
+        </figcaption>
       )}
-    </div>
+    </figure>
   )
 }

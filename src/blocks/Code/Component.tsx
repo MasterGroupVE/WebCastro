@@ -1,21 +1,25 @@
+'use client'
+
 import React from 'react'
 
-import { Code } from './Component.client'
+import { cn } from '@/utilities/ui'
 
-export type CodeBlockProps = {
-  code: string
-  language?: string
-  blockType: 'code'
-}
-
-type Props = CodeBlockProps & {
+export interface CodeBlockProps {
   className?: string
+  code?: string
+  language?: string
 }
 
-export const CodeBlock: React.FC<Props> = ({ className, code, language }) => {
+export const CodeBlock: React.FC<CodeBlockProps> = ({
+  className,
+  code = '',
+  language = 'typescript',
+}) => {
   return (
-    <div className={[className, 'not-prose'].filter(Boolean).join(' ')}>
-      <Code code={code} language={language} />
-    </div>
+    <pre className={cn('bg-gray-900 rounded-xl p-6 overflow-x-auto text-sm', className)}>
+      <code className={cn('language-', language)}>
+        {code}
+      </code>
+    </pre>
   )
 }

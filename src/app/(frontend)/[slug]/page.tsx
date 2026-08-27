@@ -7,8 +7,7 @@ import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import { homeStatic } from '@/endpoints/seed/home-static'
 
-import { RenderBlocks } from '@/blocks/RenderBlocks'
-import { RenderHero } from '@/heros/RenderHero'
+import { BlocksRenderer } from '@/collections/Pages/blocks/BlocksRenderer'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
@@ -43,39 +42,37 @@ type Args = {
   }>
 }
 
+type PageWithLayout = {
+  layout?: any[] | null
+} & RequiredDataFromCollectionSlug<'pages'>
+
 export default async function Page({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = 'home' } = await paramsPromise
-  // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
   const url = '/' + decodedSlug
-  let page: RequiredDataFromCollectionSlug<'pages'> | null
+  let page: PageWithLayout | null
 
   page = await queryPageBySlug({
     slug: decodedSlug,
   })
 
-  // Remove this code once your website is seeded
   if (!page && slug === 'home') {
-    page = homeStatic
+    page = homeStatic as PageWithLayout
   }
 
   if (!page) {
     return <PayloadRedirects url={url} />
   }
 
-  const { hero, layout } = page
+  const layout = page.layout || []
 
   return (
     <article className="pt-16 pb-24">
       <PageClient />
-      {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
-
       {draft && <LivePreviewListener />}
-
-      <RenderHero {...hero} />
-      <RenderBlocks blocks={layout} />
+      <BlocksRenderer blocks={layout} />
     </article>
   )
 }

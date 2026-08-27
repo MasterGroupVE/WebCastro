@@ -30,6 +30,23 @@ export const Media: CollectionConfig = {
       //required: true,
     },
     {
+      name: 'frameStyle',
+      type: 'select',
+      label: 'Marco decorativo',
+      defaultValue: 'none',
+      options: [
+        { label: 'Sin marco', value: 'none' },
+        { label: 'Verde arriba-izq / Dorado abajo-der', value: 'green-gold' },
+        { label: 'Dorado arriba-izq / Verde abajo-der', value: 'gold-green' },
+        { label: 'Solo verde', value: 'green' },
+        { label: 'Solo dorado', value: 'gold' },
+      ],
+      admin: {
+        description:
+          'Bloques sólidos de color que sobresalen de la imagen en el sitio público.',
+      },
+    },
+    {
       name: 'caption',
       type: 'richText',
       editor: lexicalEditor({

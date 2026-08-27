@@ -1,29 +1,34 @@
 import clsx from 'clsx'
+import Image from 'next/image'
 import React from 'react'
 
 interface Props {
   className?: string
   loading?: 'lazy' | 'eager'
-  priority?: 'auto' | 'high' | 'low'
+  priority?: boolean
+  width?: number
+  height?: number
+  variant?: 'default' | 'inverse'
 }
 
 export const Logo = (props: Props) => {
-  const { loading: loadingFromProps, priority: priorityFromProps, className } = props
+  const { className, width = 180, height = 40, variant = 'default', priority, loading = 'lazy', ...rest } = props
 
-  const loading = loadingFromProps || 'lazy'
-  const priority = priorityFromProps || 'low'
+  const shouldPriority = priority ?? width > 100
 
   return (
-    /* eslint-disable @next/next/no-img-element */
-    <img
-      alt="Payload Logo"
-      width={193}
-      height={34}
-      loading={loading}
-      fetchPriority={priority}
-      decoding="async"
-      className={clsx('max-w-[9.375rem] w-full h-[34px]', className)}
-      src="https://raw.githubusercontent.com/payloadcms/payload/3.x/packages/ui/src/assets/payload-logo-light.svg"
+    <Image
+      {...rest}
+      src="/logo-de-los-Castro.png"
+      alt="Construcciones Los Castros"
+      width={width}
+      height={height}
+      className={clsx('max-w-[12rem] w-full', className)}
+      style={{
+        filter: variant === 'inverse' ? 'brightness(0) invert(1)' : 'none',
+      }}
+      priority={shouldPriority}
+      loading={shouldPriority ? undefined : loading}
     />
   )
 }

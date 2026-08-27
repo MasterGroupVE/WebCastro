@@ -10,21 +10,29 @@ export const contact: (args: ContactArgs) => RequiredDataFromCollectionSlug<'pag
 }) => {
   return {
     slug: 'contact',
-    _status: 'published',
-    hero: {
-      type: 'none',
-    },
+    _status: 'published' as const,
+    title: 'Contacto',
     layout: [
       {
-        blockType: 'formBlock',
-        enableIntro: true,
-        form: contactForm,
-        introContent: {
+        blockType: 'hero',
+        headline: 'Contacto',
+        subheadline: '¿Tienes un proyecto en mente?',
+        ctaText: '',
+        layout: 'centered',
+        height: 'medium',
+        textColor: 'white',
+        overlayOpacity: '50',
+      },
+      {
+        blockType: 'aboutUs',
+        headline: 'Escríbenos',
+        subheadline: 'Formulario de contacto',
+        description: {
           root: {
             type: 'root',
             children: [
               {
-                type: 'heading',
+                type: 'paragraph',
                 children: [
                   {
                     type: 'text',
@@ -32,14 +40,14 @@ export const contact: (args: ContactArgs) => RequiredDataFromCollectionSlug<'pag
                     format: 0,
                     mode: 'normal',
                     style: '',
-                    text: 'Example contact form:',
+                    text: 'Llena el formulario y nos pondremos en contacto contigo lo antes posible.',
                     version: 1,
                   },
                 ],
                 direction: 'ltr',
                 format: '',
                 indent: 0,
-                tag: 'h3',
+                textFormat: 0,
                 version: 1,
               },
             ],
@@ -49,8 +57,8 @@ export const contact: (args: ContactArgs) => RequiredDataFromCollectionSlug<'pag
             version: 1,
           },
         },
+        backgroundColor: 'white',
       },
     ],
-    title: 'Contact',
   }
 }

@@ -24,20 +24,37 @@ export const generateMeta = async (args: {
 }): Promise<Metadata> => {
   const { doc } = args
 
-  const ogImage = getImageURL(doc?.meta?.image)
+  // Para Pages: usar la primera imagen de hero en layout, o meta.image si existe (legacy)
+  // Para Posts: usar doc.meta.image
+  let ogImageUrl: string | undefined
+  let title = 'Construcciones Los Castros'
+  let description = 'Empresa de construcción con más de 15 años de experiencia'
 
-  const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template'
+  if (doc) {
+    if ('meta' in doc && doc.meta) {
+      // Post o Page legacy
+      ogImageUrl = getImageURL(doc.meta.image)
+      title = doc.meta.title ? `${doc.meta.title} | Construcciones Los Castros` : title
+      description = doc.meta.description || description
+    } else if ('layout' in doc && doc.layout) {
+      // Page nueva con blocks
+      const heroBlock = doc.layout.find((b: any) => b.blockType === 'hero')
+      const heroBg = heroBlock && 'backgroundImage' in heroBlock ? heroBlock.backgroundImage : undefined
+      if (heroBg) {
+        ogImageUrl = getImageURL(heroBg)
+      }
+      title = doc.title ? `${doc.title} | Construcciones Los Castros` : title
+    }
+  }
 
   return {
-    description: doc?.meta?.description,
+    description,
     openGraph: mergeOpenGraph({
-      description: doc?.meta?.description || '',
-      images: ogImage
+      description,
+      images: ogImageUrl
         ? [
             {
-              url: ogImage,
+              url: ogImageUrl,
             },
           ]
         : undefined,

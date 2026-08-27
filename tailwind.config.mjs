@@ -2,6 +2,17 @@
 const config = {
   theme: {
     extend: {
+      fontFamily: {
+        display: ['var(--font-display)', 'sans-serif'],
+        body: ['var(--font-body)', 'sans-serif'],
+      },
+      colors: {
+        brand: {
+          navy: 'var(--brand-navy)',
+          green: 'var(--brand-green)',
+          gold: 'var(--brand-gold)',
+        },
+      },
       typography: {
         DEFAULT: {
           css: [

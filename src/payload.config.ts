@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
-import { Pages } from './collections/Pages'
+import Pages from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
@@ -21,11 +21,7 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     components: {
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
       beforeLogin: ['@/components/BeforeLogin'],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
       beforeDashboard: ['@/components/BeforeDashboard'],
     },
     importMap: {
@@ -35,7 +31,7 @@ export default buildConfig({
     livePreview: {
       breakpoints: [
         {
-          label: 'Mobile',
+          label: 'Móvil',
           name: 'mobile',
           width: 375,
           height: 667,
@@ -47,12 +43,15 @@ export default buildConfig({
           height: 1024,
         },
         {
-          label: 'Desktop',
+          label: 'Escritorio',
           name: 'desktop',
           width: 1440,
           height: 900,
         },
       ],
+    },
+    meta: {
+      titleSuffix: ' - Construcciones Los Castros',
     },
   },
   // This config helps us configure global or default features that the other editors can inherit
