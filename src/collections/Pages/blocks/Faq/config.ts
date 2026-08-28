@@ -2,26 +2,32 @@ import { Block } from 'payload'
 
 export const FaqBlock: Block = {
   slug: 'faq',
-  labels: { singular: 'FAQ', plural: 'FAQs' },
+  labels: { singular: 'Preguntas Frecuentes (FAQ)', plural: 'Preguntas Frecuentes (FAQ)' },
   fields: [
+    {
+      name: 'badge',
+      type: 'text',
+      label: 'Insignia superior',
+      defaultValue: 'Preguntas Frecuentes',
+    },
     {
       name: 'headline',
       type: 'text',
       required: true,
-      label: 'Titular',
-      defaultValue: 'Preguntas Frecuentes',
+      label: 'Titular principal',
+      defaultValue: 'Lo Que Debes Saber Antes de Iniciar',
     },
     {
       name: 'subheadline',
       type: 'textarea',
-      label: 'Subtítulo',
+      label: 'Subtítulo (opcional)',
     },
     {
       name: 'questions',
       type: 'array',
       required: true,
       minRows: 1,
-      label: 'Preguntas',
+      label: 'Preguntas y Respuestas',
       labels: { singular: 'Pregunta', plural: 'Preguntas' },
       fields: [
         {
@@ -34,20 +40,9 @@ export const FaqBlock: Block = {
           name: 'answer',
           type: 'textarea',
           required: true,
-          label: 'Respuesta',
+          label: 'Respuesta detallada',
         },
       ],
-    },
-    {
-      name: 'backgroundColor',
-      type: 'select',
-      label: 'Fondo',
-      options: [
-        { label: 'Blanco', value: 'white' },
-        { label: 'Gris claro', value: 'gray' },
-        { label: 'Navy', value: 'navy' },
-      ],
-      defaultValue: 'white',
     },
   ],
 }

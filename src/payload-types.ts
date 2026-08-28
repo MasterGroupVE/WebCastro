@@ -162,109 +162,182 @@ export interface Page {
   layout?:
     | (
         | {
+            badge?: string | null;
             headline: string;
-            subheadline?: string | null;
-            ctaText?: string | null;
             /**
-             * URL relativa (/servicios) o absoluta
+             * Aparecerá en el titular con un degradado llamativo amarillo/dorado.
              */
-            ctaLink?: string | null;
+            highlightText?: string | null;
+            subheadline?: string | null;
+            primaryCtaText?: string | null;
+            primaryCtaLink?: string | null;
+            secondaryCtaText?: string | null;
+            secondaryCtaType?: ('modal' | 'link') | null;
+            secondaryCtaLink?: string | null;
             backgroundImage?: (number | null) | Media;
-            overlayOpacity?: ('30' | '50' | '70') | null;
-            layout?: ('centered' | 'left' | 'right' | 'split') | null;
-            height?: ('full' | 'large' | 'medium' | 'auto') | null;
-            textColor?: ('white' | 'navy') | null;
+            showRating?: boolean | null;
+            ratingScore?: string | null;
+            ratingText?: string | null;
+            avatars?:
+              | {
+                  image?: (number | null) | Media;
+                  id?: string | null;
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'hero';
           }
         | {
+            badge?: string | null;
             headline: string;
-            subheadline?: string | null;
-            description: {
-              root: {
-                type: string;
-                children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            };
-            image?: (number | null) | Media;
-            imagePosition?: ('left' | 'right') | null;
-            stats?:
+            paragraph1?: string | null;
+            paragraph2?: string | null;
+            features?:
               | {
-                  value: string;
-                  label: string;
-                  icon?: string | null;
+                  text: string;
                   id?: string | null;
                 }[]
               | null;
-            backgroundColor?: ('white' | 'gray' | 'navy') | null;
+            ctaText?: string | null;
+            ctaAction?: ('modal' | 'link') | null;
+            ctaLink?: string | null;
+            image1?: (number | null) | Media;
+            stat1Value?: string | null;
+            stat1Label?: string | null;
+            stat2Value?: string | null;
+            stat2Label?: string | null;
+            image2?: (number | null) | Media;
+            guaranteeBadgeTitle?: string | null;
+            guaranteeBadgeText?: string | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'aboutUs';
           }
         | {
+            badge?: string | null;
             headline: string;
-            subheadline?: string | null;
+            layout?: ('tabs' | 'grid3' | 'grid2' | 'cards' | 'numbered') | null;
             services: {
+              tabLabel: string;
               title: string;
-              description?: string | null;
-              /**
-               * Ej: Building2, Wrench, HardHat, Truck, Factory
-               */
-              icon?: string | null;
-              /**
-               * Ej: #092F56, #009845, #F8D000
-               */
-              iconColor?: string | null;
+              description: string;
               image?: (number | null) | Media;
+              badge?: string | null;
+              features?:
+                | {
+                    text: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              icon?: string | null;
               link?: string | null;
               id?: string | null;
             }[];
-            layout?: ('grid3' | 'grid2' | 'list' | 'cards' | 'numbered') | null;
-            listImage?: (number | null) | Media;
-            backgroundColor?: ('white' | 'gray' | 'navy') | null;
-            /**
-             * Color por defecto para todos los iconos (ej: #092F56)
-             */
-            iconColor?: string | null;
-            ctaText?: string | null;
-            ctaLink?: string | null;
+            showEmergencyBox?: boolean | null;
+            emergencyTitle?: string | null;
+            emergencyPhone?: string | null;
+            emergencyLink?: string | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'services';
           }
         | {
+            badge?: string | null;
+            headline: string;
+            subheadline?: string | null;
+            steps: {
+              stepNumber: string;
+              title: string;
+              description: string;
+              icon?: string | null;
+              color?: ('yellow' | 'green' | 'blue') | null;
+              id?: string | null;
+            }[];
+            backgroundColor?: ('light' | 'white' | 'navy') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'process';
+          }
+        | {
+            badge?: string | null;
             headline: string;
             subheadline?: string | null;
             projects: {
               title: string;
               category?: string | null;
+              categoryColor?: ('green' | 'navy' | 'yellow') | null;
               description?: string | null;
               location?: string | null;
-              year?: string | null;
+              status?: string | null;
               image?: (number | null) | Media;
-              /**
-               * URL relativa (/proyectos/obra-x) o absoluta
-               */
               link?: string | null;
               id?: string | null;
             }[];
-            layout?: ('grid3' | 'grid2' | 'list') | null;
-            backgroundColor?: ('white' | 'gray' | 'navy') | null;
             ctaText?: string | null;
+            ctaAction?: ('modal' | 'link') | null;
             ctaLink?: string | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'projects';
+          }
+        | {
+            badge?: string | null;
+            headline: string;
+            subheadline?: string | null;
+            testimonials: {
+              quote: string;
+              author: string;
+              role?: string | null;
+              rating?: number | null;
+              avatar?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonials';
+          }
+        | {
+            badge?: string | null;
+            headline: string;
+            subheadline?: string | null;
+            questions: {
+              question: string;
+              answer: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faq';
+          }
+        | {
+            badge?: string | null;
+            headline: string;
+            subheadline?: string | null;
+            customPosts?:
+              | {
+                  title: string;
+                  category?: string | null;
+                  description: string;
+                  image?: (number | null) | Media;
+                  link?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'postsGrid';
+          }
+        | {
+            headline: string;
+            text?: string | null;
+            buttonText?: string | null;
+            buttonAction?: ('link' | 'modal') | null;
+            buttonLink?: string | null;
+            backgroundColor?: ('yellow' | 'navy' | 'green') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ctaBanner';
           }
         | {
             headline: string;
@@ -292,52 +365,6 @@ export interface Page {
             blockType: 'contact';
           }
         | {
-            slides: {
-              image: number | Media;
-              title?: string | null;
-              subtitle?: string | null;
-              ctaText?: string | null;
-              ctaLink?: string | null;
-              id?: string | null;
-            }[];
-            autoplay?: boolean | null;
-            /**
-             * Milisegundos entre diapositivas (mínimo 2000)
-             */
-            interval?: number | null;
-            height?: ('full' | 'large' | 'medium') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'slider';
-          }
-        | {
-            headline: string;
-            subheadline?: string | null;
-            testimonials: {
-              quote: string;
-              author: string;
-              role?: string | null;
-              rating?: number | null;
-              avatar?: (number | null) | Media;
-              id?: string | null;
-            }[];
-            backgroundColor?: ('white' | 'gray' | 'navy') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'testimonials';
-          }
-        | {
-            headline: string;
-            text?: string | null;
-            buttonText?: string | null;
-            buttonLink?: string | null;
-            style?: ('navy' | 'green' | 'gold' | 'gradient') | null;
-            backgroundImage?: (number | null) | Media;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'ctaBanner';
-          }
-        | {
             headline: string;
             subheadline?: string | null;
             items: {
@@ -355,28 +382,23 @@ export interface Page {
             blockType: 'features';
           }
         | {
-            headline: string;
-            subheadline?: string | null;
-            questions: {
-              question: string;
-              answer: string;
+            slides: {
+              image: number | Media;
+              title?: string | null;
+              subtitle?: string | null;
+              ctaText?: string | null;
+              ctaLink?: string | null;
               id?: string | null;
             }[];
-            backgroundColor?: ('white' | 'gray' | 'navy') | null;
+            autoplay?: boolean | null;
+            /**
+             * Milisegundos entre diapositivas (mínimo 2000)
+             */
+            interval?: number | null;
+            height?: ('full' | 'large' | 'medium') | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'faq';
-          }
-        | {
-            headline: string;
-            subheadline?: string | null;
-            limit?: number | null;
-            backgroundColor?: ('white' | 'gray' | 'navy') | null;
-            ctaText?: string | null;
-            ctaLink?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'postsGrid';
+            blockType: 'slider';
           }
       )[]
     | null;
@@ -1056,66 +1078,110 @@ export interface PagesSelect<T extends boolean = true> {
         hero?:
           | T
           | {
+              badge?: T;
               headline?: T;
+              highlightText?: T;
               subheadline?: T;
-              ctaText?: T;
-              ctaLink?: T;
+              primaryCtaText?: T;
+              primaryCtaLink?: T;
+              secondaryCtaText?: T;
+              secondaryCtaType?: T;
+              secondaryCtaLink?: T;
               backgroundImage?: T;
-              overlayOpacity?: T;
-              layout?: T;
-              height?: T;
-              textColor?: T;
+              showRating?: T;
+              ratingScore?: T;
+              ratingText?: T;
+              avatars?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
         aboutUs?:
           | T
           | {
+              badge?: T;
               headline?: T;
-              subheadline?: T;
-              description?: T;
-              image?: T;
-              imagePosition?: T;
-              stats?:
+              paragraph1?: T;
+              paragraph2?: T;
+              features?:
                 | T
                 | {
-                    value?: T;
-                    label?: T;
-                    icon?: T;
+                    text?: T;
                     id?: T;
                   };
-              backgroundColor?: T;
+              ctaText?: T;
+              ctaAction?: T;
+              ctaLink?: T;
+              image1?: T;
+              stat1Value?: T;
+              stat1Label?: T;
+              stat2Value?: T;
+              stat2Label?: T;
+              image2?: T;
+              guaranteeBadgeTitle?: T;
+              guaranteeBadgeText?: T;
               id?: T;
               blockName?: T;
             };
         services?:
           | T
           | {
+              badge?: T;
               headline?: T;
-              subheadline?: T;
+              layout?: T;
               services?:
                 | T
                 | {
+                    tabLabel?: T;
                     title?: T;
                     description?: T;
-                    icon?: T;
-                    iconColor?: T;
                     image?: T;
+                    badge?: T;
+                    features?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    icon?: T;
                     link?: T;
                     id?: T;
                   };
-              layout?: T;
-              listImage?: T;
+              showEmergencyBox?: T;
+              emergencyTitle?: T;
+              emergencyPhone?: T;
+              emergencyLink?: T;
+              id?: T;
+              blockName?: T;
+            };
+        process?:
+          | T
+          | {
+              badge?: T;
+              headline?: T;
+              subheadline?: T;
+              steps?:
+                | T
+                | {
+                    stepNumber?: T;
+                    title?: T;
+                    description?: T;
+                    icon?: T;
+                    color?: T;
+                    id?: T;
+                  };
               backgroundColor?: T;
-              iconColor?: T;
-              ctaText?: T;
-              ctaLink?: T;
               id?: T;
               blockName?: T;
             };
         projects?:
           | T
           | {
+              badge?: T;
               headline?: T;
               subheadline?: T;
               projects?:
@@ -1123,17 +1189,83 @@ export interface PagesSelect<T extends boolean = true> {
                 | {
                     title?: T;
                     category?: T;
+                    categoryColor?: T;
                     description?: T;
                     location?: T;
-                    year?: T;
+                    status?: T;
                     image?: T;
                     link?: T;
                     id?: T;
                   };
-              layout?: T;
-              backgroundColor?: T;
               ctaText?: T;
+              ctaAction?: T;
               ctaLink?: T;
+              id?: T;
+              blockName?: T;
+            };
+        testimonials?:
+          | T
+          | {
+              badge?: T;
+              headline?: T;
+              subheadline?: T;
+              testimonials?:
+                | T
+                | {
+                    quote?: T;
+                    author?: T;
+                    role?: T;
+                    rating?: T;
+                    avatar?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        faq?:
+          | T
+          | {
+              badge?: T;
+              headline?: T;
+              subheadline?: T;
+              questions?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        postsGrid?:
+          | T
+          | {
+              badge?: T;
+              headline?: T;
+              subheadline?: T;
+              customPosts?:
+                | T
+                | {
+                    title?: T;
+                    category?: T;
+                    description?: T;
+                    image?: T;
+                    link?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        ctaBanner?:
+          | T
+          | {
+              headline?: T;
+              text?: T;
+              buttonText?: T;
+              buttonAction?: T;
+              buttonLink?: T;
+              backgroundColor?: T;
               id?: T;
               blockName?: T;
             };
@@ -1156,56 +1288,6 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        slider?:
-          | T
-          | {
-              slides?:
-                | T
-                | {
-                    image?: T;
-                    title?: T;
-                    subtitle?: T;
-                    ctaText?: T;
-                    ctaLink?: T;
-                    id?: T;
-                  };
-              autoplay?: T;
-              interval?: T;
-              height?: T;
-              id?: T;
-              blockName?: T;
-            };
-        testimonials?:
-          | T
-          | {
-              headline?: T;
-              subheadline?: T;
-              testimonials?:
-                | T
-                | {
-                    quote?: T;
-                    author?: T;
-                    role?: T;
-                    rating?: T;
-                    avatar?: T;
-                    id?: T;
-                  };
-              backgroundColor?: T;
-              id?: T;
-              blockName?: T;
-            };
-        ctaBanner?:
-          | T
-          | {
-              headline?: T;
-              text?: T;
-              buttonText?: T;
-              buttonLink?: T;
-              style?: T;
-              backgroundImage?: T;
-              id?: T;
-              blockName?: T;
-            };
         features?:
           | T
           | {
@@ -1223,31 +1305,22 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        faq?:
+        slider?:
           | T
           | {
-              headline?: T;
-              subheadline?: T;
-              questions?:
+              slides?:
                 | T
                 | {
-                    question?: T;
-                    answer?: T;
+                    image?: T;
+                    title?: T;
+                    subtitle?: T;
+                    ctaText?: T;
+                    ctaLink?: T;
                     id?: T;
                   };
-              backgroundColor?: T;
-              id?: T;
-              blockName?: T;
-            };
-        postsGrid?:
-          | T
-          | {
-              headline?: T;
-              subheadline?: T;
-              limit?: T;
-              backgroundColor?: T;
-              ctaText?: T;
-              ctaLink?: T;
+              autoplay?: T;
+              interval?: T;
+              height?: T;
               id?: T;
               blockName?: T;
             };

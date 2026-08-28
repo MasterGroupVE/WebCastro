@@ -5,6 +5,7 @@ import React from 'react'
 import { HeroBlockComponent } from './Hero/Component'
 import { AboutUsBlockComponent } from './AboutUs/Component'
 import { ServicesBlockComponent } from './Services/Component'
+import { ProcessBlockComponent } from './Process/Component'
 import { ProjectsBlockComponent } from './Projects/Component'
 import { ContactBlockComponent } from './Contact/Component'
 import { SliderBlockComponent } from './Slider/Component'
@@ -18,6 +19,7 @@ const blockComponents: Record<string, React.FC<any>> = {
   hero: HeroBlockComponent,
   aboutUs: AboutUsBlockComponent,
   services: ServicesBlockComponent,
+  process: ProcessBlockComponent,
   projects: ProjectsBlockComponent,
   contact: ContactBlockComponent,
   slider: SliderBlockComponent,

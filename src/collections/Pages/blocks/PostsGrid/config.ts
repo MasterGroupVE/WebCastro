@@ -2,48 +2,63 @@ import { Block } from 'payload'
 
 export const PostsGridBlock: Block = {
   slug: 'postsGrid',
-  labels: { singular: 'Blog', plural: 'Blogs' },
+  labels: { singular: 'Blog / Artículos', plural: 'Secciones de Blog / Artículos' },
   fields: [
+    {
+      name: 'badge',
+      type: 'text',
+      label: 'Insignia superior',
+      defaultValue: 'Artículos y Consejos',
+    },
     {
       name: 'headline',
       type: 'text',
       required: true,
-      label: 'Titular',
-      defaultValue: 'Blog y Consejos',
+      label: 'Titular principal',
+      defaultValue: 'Blog de Innovación y Remodelaciones',
     },
     {
       name: 'subheadline',
       type: 'textarea',
-      label: 'Subtítulo',
+      label: 'Subtítulo (opcional)',
     },
     {
-      name: 'limit',
-      type: 'number',
-      label: 'Cantidad de publicaciones',
-      defaultValue: 3,
-      min: 1,
-      max: 9,
-    },
-    {
-      name: 'backgroundColor',
-      type: 'select',
-      label: 'Fondo',
-      options: [
-        { label: 'Blanco', value: 'white' },
-        { label: 'Gris claro', value: 'gray' },
-        { label: 'Navy', value: 'navy' },
+      name: 'customPosts',
+      type: 'array',
+      label: 'Artículos Destacados',
+      labels: { singular: 'Artículo', plural: 'Artículos' },
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+          label: 'Título del artículo',
+        },
+        {
+          name: 'category',
+          type: 'text',
+          label: 'Categoría (ej. Mantenimiento, Tendencias, Consejos)',
+          defaultValue: 'Mantenimiento',
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          required: true,
+          label: 'Extracto o descripción breve',
+        },
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Imagen de portada',
+        },
+        {
+          name: 'link',
+          type: 'text',
+          label: 'Enlace del artículo',
+          defaultValue: '/posts',
+        },
       ],
-      defaultValue: 'white',
-    },
-    {
-      name: 'ctaText',
-      type: 'text',
-      label: 'Texto del botón final',
-    },
-    {
-      name: 'ctaLink',
-      type: 'text',
-      label: 'Enlace del botón final',
     },
   ],
 }

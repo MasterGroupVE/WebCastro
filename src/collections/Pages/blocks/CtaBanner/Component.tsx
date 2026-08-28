@@ -1,97 +1,98 @@
 'use client'
 
-import Image from 'next/image'
-import Link from 'next/link'
 import React from 'react'
-
+import { openQuoteModal } from '@/components/landing/QuoteModal'
 import { cn } from '@/utilities/ui'
 
 interface CtaBannerBlockProps {
   block: {
-    headline: string
+    headline?: string
     text?: string
     buttonText?: string
+    buttonAction?: 'link' | 'modal'
     buttonLink?: string
-    style?: 'navy' | 'green' | 'gold' | 'gradient'
-    backgroundImage?: { url: string; alt?: string }
+    backgroundColor?: 'yellow' | 'navy' | 'green'
+    // Legacy support
+    style?: string
   }
 }
 
-const styleClasses = {
-  navy: 'bg-brand-navy text-white',
-  green: 'bg-brand-green text-white',
-  gold: 'bg-brand-gold text-brand-navy',
-  gradient: 'bg-gradient-to-r from-brand-navy via-brand-green to-brand-navy text-white',
-}
+export const CtaBannerBlockComponent: React.FC<CtaBannerBlockProps> = ({ block }) => {
+  const {
+    headline = '¿Necesitas Ayuda Inmediata con Tu Proyecto?',
+    text = 'Habla directamente con uno de nuestros ingenieros supervisores hoy mismo.',
+    buttonText = 'Llámanos: +58 (212) 555-CASTRO',
+    buttonAction = 'link',
+    buttonLink = 'tel:+582125552278',
+    backgroundColor = 'yellow',
+  } = block
 
-export const CtaBannerBlockComponent = ({ block }: CtaBannerBlockProps) => {
-  const { headline, text, buttonText, buttonLink, style = 'navy', backgroundImage } = block
+  const isYellow = backgroundColor === 'yellow' || block.style === 'gold'
+  const isGreen = backgroundColor === 'green' || block.style === 'green'
 
-  const hasImage = Boolean(backgroundImage?.url)
-  const isGold = !hasImage && style === 'gold'
-  const buttonClasses = isGold
-    ? 'bg-brand-navy text-white hover:bg-brand-green'
-    : 'bg-brand-gold text-brand-navy hover:bg-yellow-300'
+  const bannerBg = isYellow
+    ? 'bg-castro-yellow text-castro-navy'
+    : isGreen
+    ? 'bg-castro-green text-white'
+    : 'bg-castro-navy text-white'
+
+  const buttonCls = isYellow
+    ? 'bg-castro-navy hover:bg-castro-darknavy text-white'
+    : isGreen
+    ? 'bg-castro-yellow hover:bg-castro-yellowhover text-castro-navy'
+    : 'bg-castro-yellow hover:bg-castro-yellowhover text-castro-navy'
 
   return (
-    <section className="py-16 md:py-24">
-      <div className="container">
-        <div
-          className={cn(
-            'relative overflow-hidden rounded-2xl px-6 py-14 md:px-12 md:py-20 text-center',
-            hasImage ? '' : styleClasses[style],
-          )}
-        >
-          {hasImage && (
-            <>
-              <Image
-                src={backgroundImage!.url}
-                alt={backgroundImage!.alt || ''}
-                fill
-                className="object-cover"
-                sizes="100vw"
-              />
-              <div className="absolute inset-0 bg-brand-navy/70" />
-            </>
-          )}
-
-          <div className="relative z-10 max-w-3xl mx-auto">
-            <h2
+    <div className={cn('py-6 px-4 font-sans', bannerBg)}>
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div>
+          <h3
+            className={cn(
+              'text-xl sm:text-2xl font-black',
+              isYellow ? 'text-castro-navy' : 'text-white',
+            )}
+          >
+            {headline}
+          </h3>
+          {text && (
+            <p
               className={cn(
-                'font-display text-3xl md:text-4xl font-bold mb-4',
-                isGold ? 'text-brand-navy' : 'text-white',
+                'text-xs sm:text-sm font-semibold',
+                isYellow ? 'text-castro-navy/80' : 'text-slate-200',
               )}
             >
-              {headline}
-            </h2>
-            {text && (
-              <p
+              {text}
+            </p>
+          )}
+        </div>
+
+        {buttonText && (
+          <>
+            {buttonAction === 'modal' ? (
+              <button
+                type="button"
+                onClick={openQuoteModal}
                 className={cn(
-                  'font-body text-lg leading-relaxed mb-8',
-                  isGold ? 'text-brand-navy/80' : 'text-white/90',
-                )}
-              >
-                {text}
-              </p>
-            )}
-            {buttonText && buttonLink && (
-              <Link
-                href={buttonLink}
-                className={cn(
-                  'inline-flex items-center gap-2 px-8 py-4 font-body font-semibold rounded-lg transition-colors',
-                  buttonClasses,
-                  hasImage && 'relative z-10',
+                  'font-extrabold text-sm px-8 py-3.5 rounded-xl shadow-lg transition whitespace-nowrap cursor-pointer',
+                  buttonCls,
                 )}
               >
                 {buttonText}
-                <span aria-hidden="true" className="material-icons-outlined text-xl leading-none">
-                  arrow_forward
-                </span>
-              </Link>
+              </button>
+            ) : (
+              <a
+                href={buttonLink}
+                className={cn(
+                  'font-extrabold text-sm px-8 py-3.5 rounded-xl shadow-lg transition whitespace-nowrap',
+                  buttonCls,
+                )}
+              >
+                {buttonText}
+              </a>
             )}
-          </div>
-        </div>
+          </>
+        )}
       </div>
-    </section>
+    </div>
   )
 }

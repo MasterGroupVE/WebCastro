@@ -3,6 +3,7 @@ import { CollectionConfig } from 'payload'
 import { HeroBlock } from './blocks/Hero'
 import { AboutUsBlock } from './blocks/AboutUs'
 import { ServicesBlock } from './blocks/Services'
+import { ProcessBlock } from './blocks/Process'
 import { ProjectsBlock } from './blocks/Projects'
 import { ContactBlock } from './blocks/Contact'
 import { SliderBlock } from './blocks/Slider'
@@ -16,6 +17,7 @@ const Pages: CollectionConfig = {
   slug: 'pages',
   admin: {
     useAsTitle: 'title',
+    defaultColumns: ['title', 'slug', 'updatedAt'],
   },
   access: {
     read: () => true, // Permitir lectura pública
@@ -25,6 +27,7 @@ const Pages: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      label: 'Título de la Página',
     },
     {
       name: 'slug',
@@ -32,30 +35,29 @@ const Pages: CollectionConfig = {
       required: true,
       unique: true,
       admin: {
-        position: 'sidebar', // Opcional: mover a la barra lateral
+        position: 'sidebar',
       },
     },
-    // --- ESTE ES EL CAMPO CLAVE ---
     {
-      name: 'layout', // Nombre del campo en la base de datos
-      label: 'Estructura de la Página',
-      type: 'blocks', // Tipo Flexible Content
+      name: 'layout',
+      label: 'Estructura de Bloques de la Página',
+      type: 'blocks',
       blocks: [
         HeroBlock,
         AboutUsBlock,
         ServicesBlock,
+        ProcessBlock,
         ProjectsBlock,
-        ContactBlock,
-        SliderBlock,
         TestimonialsBlock,
-        CtaBannerBlock,
-        FeaturesBlock,
         FaqBlock,
         PostsGridBlock,
-        // Agrega aquí el resto de bloques cuando los crees
+        CtaBannerBlock,
+        ContactBlock,
+        FeaturesBlock,
+        SliderBlock,
       ],
     },
   ],
-};
+}
 
-export default Pages;
+export default Pages

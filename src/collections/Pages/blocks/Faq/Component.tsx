@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-
 import { cn } from '@/utilities/ui'
 
 interface FaqItem {
@@ -11,92 +10,90 @@ interface FaqItem {
 
 interface FaqBlockProps {
   block: {
-    headline: string
+    badge?: string
+    headline?: string
     subheadline?: string
-    questions: FaqItem[]
-    backgroundColor?: 'white' | 'gray' | 'navy'
+    questions?: FaqItem[]
   }
 }
 
-const bgClasses = {
-  white: 'bg-white',
-  gray: 'bg-gray-50',
-  navy: 'bg-brand-navy',
-}
+const defaultFaqs: FaqItem[] = [
+  {
+    question: '¿Cuánto tiempo toma una remodelación residencial completa?',
+    answer:
+      'El tiempo varía según el alcance. Generalmente, renovaciones pequeñas tardan de 2 a 4 semanas, mientras que proyectos integrales completas toman entre 6 y 12 semanas. Elaboramos un cronograma detallado desde el día uno.',
+  },
+  {
+    question: '¿Ofrecen un presupuesto fijo y cerrado?',
+    answer:
+      'Sí, presentamos presupuestos transparentes por partida de obra. Salvo modificaciones solicitadas explícitamente por el cliente durante la ejecución, el costo acordado se mantiene.',
+  },
+  {
+    question: '¿Los materiales de construcción están incluidos en el presupuesto?',
+    answer:
+      'Ofrecemos la modalidad "llave en mano" que incluye tanto materiales de obra gruesa como fina, o podemos trabajar bajo modalidad de suministro directo según tus preferencias.',
+  },
+  {
+    question: '¿Puedo habitar la vivienda mientras se realiza la remodelación?',
+    answer:
+      'En remodelaciones parciales (como baños o terrazas) coordinamos el trabajo por fases para minimizar las molestias. En obras integrales recomendamos desocupar temporalmente por seguridad e higiene.',
+  },
+]
 
-const textColorClasses = {
-  white: 'text-brand-navy',
-  gray: 'text-brand-navy',
-  navy: 'text-white',
-}
+export const FaqBlockComponent: React.FC<FaqBlockProps> = ({ block }) => {
+  const {
+    badge = 'Preguntas Frecuentes',
+    headline = 'Lo Que Debes Saber Antes de Iniciar',
+    subheadline,
+    questions = defaultFaqs,
+  } = block
 
-const mutedColorClasses = {
-  white: 'text-gray-600',
-  gray: 'text-gray-600',
-  navy: 'text-white/70',
-}
-
-export const FaqBlockComponent = ({ block }: FaqBlockProps) => {
-  const { headline, subheadline, questions, backgroundColor = 'white' } = block
-
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
-
-  const isDark = backgroundColor === 'navy'
-  const textColor = textColorClasses[backgroundColor]
-  const mutedColor = mutedColorClasses[backgroundColor]
+  const [openFaq, setOpenFaq] = useState<string | null>(null)
+  const faqList = questions?.length ? questions : defaultFaqs
 
   return (
-    <section className={cn('py-16 md:py-24', bgClasses[backgroundColor])}>
-      <div className="container">
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          {subheadline && (
-            <p className="font-display text-brand-gold font-medium mb-2 text-lg tracking-wide uppercase">
-              {subheadline}
-            </p>
+    <section id="faq" className="py-20 bg-castro-lightbg border-t border-slate-200/60 font-sans">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          {badge && (
+            <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-castro-green mb-2">
+              <span className="w-2 h-2 rounded-full bg-castro-green"></span>
+              <span>{badge}</span>
+            </div>
           )}
-          <h2 className={cn('font-display text-3xl md:text-4xl font-bold', textColor)}>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-castro-navy tracking-tight">
             {headline}
           </h2>
+          {subheadline && <p className="text-slate-600 text-sm mt-3">{subheadline}</p>}
         </div>
 
-        <div className="max-w-3xl mx-auto">
-          {questions?.map((item, index) => {
-            const isOpen = openIndex === index
+        <div className="space-y-4">
+          {faqList.map((f, i) => {
+            const id = `faq-${i + 1}`
+            const isOpen = openFaq === id
             return (
               <div
-                key={index}
-                className={cn('border-b', isDark ? 'border-white/10' : 'border-gray-200')}
+                key={id}
+                className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs"
               >
                 <button
                   type="button"
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
-                  aria-expanded={isOpen}
-                  className="w-full flex items-center justify-between gap-4 py-5 text-left"
+                  onClick={() => setOpenFaq(isOpen ? null : id)}
+                  className="w-full text-left p-6 font-bold text-castro-navy text-lg flex justify-between items-center hover:bg-slate-50 transition cursor-pointer"
                 >
-                  <span className={cn('font-display text-lg font-semibold', textColor)}>
-                    {item.question}
-                  </span>
-                  <span
-                    aria-hidden="true"
+                  <span className="pr-4">{f.question}</span>
+                  <i
                     className={cn(
-                      'material-icons-outlined text-xl leading-none flex-shrink-0 transition-transform duration-300',
-                      isOpen && 'rotate-180',
-                      isDark ? 'text-brand-gold' : 'text-brand-green',
+                      'fa-solid fa-chevron-down text-castro-green transition-transform duration-200 flex-shrink-0',
+                      isOpen ? 'rotate-180' : '',
                     )}
-                  >
-                    expand_more
-                  </span>
+                  ></i>
                 </button>
-                <div
-                  className={cn(
-                    'grid transition-all duration-300 ease-in-out',
-                    isOpen ? 'grid-rows-[1fr] opacity-100 pb-5' : 'grid-rows-[0fr] opacity-0',
-                  )}
-                >
-                  <div className="overflow-hidden">
-                    <p className={cn('font-body leading-relaxed pr-8', mutedColor)}>{item.answer}</p>
+                {isOpen && (
+                  <div className="px-6 pb-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100/60 pt-4">
+                    {f.answer}
                   </div>
-                </div>
+                )}
               </div>
             )
           })}

@@ -2,30 +2,71 @@ import { Block } from 'payload'
 
 export const HeroBlock: Block = {
   slug: 'hero',
-  labels: { singular: 'Hero', plural: 'Heroes' },
+  labels: { singular: 'Hero Principal', plural: 'Heroes Principales' },
   fields: [
+    {
+      name: 'badge',
+      type: 'text',
+      label: 'Insignia superior destacada',
+      defaultValue: 'Líderes en Construcción y Remodelaciones Integrales',
+    },
     {
       name: 'headline',
       type: 'text',
       required: true,
       label: 'Titular principal',
+      defaultValue: 'Excelencia y Calidad Enfocada en',
+    },
+    {
+      name: 'highlightText',
+      type: 'text',
+      label: 'Texto resaltado con gradiente dorado',
+      defaultValue: 'Tus Proyectos',
+      admin: {
+        description: 'Aparecerá en el titular con un degradado llamativo amarillo/dorado.',
+      },
     },
     {
       name: 'subheadline',
       type: 'textarea',
-      label: 'Subtítulo',
+      label: 'Subtítulo / Descripción',
+      defaultValue:
+        'Ofrecemos soluciones de construcción, ingeniería y remodelación residencial y comercial de alto nivel. Garantizamos acabados impecables, materiales duraderos y entrega a tiempo.',
     },
     {
-      name: 'ctaText',
+      name: 'primaryCtaText',
       type: 'text',
-      label: 'Texto del botón',
+      label: 'Texto del botón principal',
+      defaultValue: 'Explorar Servicios',
     },
     {
-      name: 'ctaLink',
+      name: 'primaryCtaLink',
       type: 'text',
-      label: 'Enlace del botón',
+      label: 'Enlace del botón principal',
+      defaultValue: '#servicios',
+    },
+    {
+      name: 'secondaryCtaText',
+      type: 'text',
+      label: 'Texto del botón secundario',
+      defaultValue: 'Agendar Inspección',
+    },
+    {
+      name: 'secondaryCtaType',
+      type: 'select',
+      label: 'Acción del botón secundario',
+      options: [
+        { label: 'Abrir Formulario / Modal de Cotización', value: 'modal' },
+        { label: 'Enlace personalizado', value: 'link' },
+      ],
+      defaultValue: 'modal',
+    },
+    {
+      name: 'secondaryCtaLink',
+      type: 'text',
+      label: 'Enlace personalizado del botón secundario',
       admin: {
-        description: 'URL relativa (/servicios) o absoluta',
+        condition: (_data, siblingData) => siblingData?.secondaryCtaType === 'link',
       },
     },
     {
@@ -35,49 +76,44 @@ export const HeroBlock: Block = {
       label: 'Imagen de fondo',
     },
     {
-      name: 'overlayOpacity',
-      type: 'select',
-      label: 'Opacidad del overlay',
-      options: [
-        { label: 'Ligera (30%)', value: '30' },
-        { label: 'Media (50%)', value: '50' },
-        { label: 'Fuerte (70%)', value: '70' },
-      ],
-      defaultValue: '50',
+      name: 'showRating',
+      type: 'checkbox',
+      label: 'Mostrar barra de prueba social (estrellas y proyectos entregados)',
+      defaultValue: true,
     },
     {
-      name: 'layout',
-      type: 'select',
-      label: 'Distribución',
-      options: [
-        { label: 'Centrado', value: 'centered' },
-        { label: 'Izquierda', value: 'left' },
-        { label: 'Derecha', value: 'right' },
-        { label: 'Partida (imagen + texto)', value: 'split' },
-      ],
-      defaultValue: 'centered',
+      name: 'ratingScore',
+      type: 'text',
+      label: 'Calificación (ej. 5/5)',
+      defaultValue: '5/5',
+      admin: {
+        condition: (_data, siblingData) => Boolean(siblingData?.showRating),
+      },
     },
     {
-      name: 'height',
-      type: 'select',
-      label: 'Altura',
-      options: [
-        { label: 'Pantalla completa (100vh)', value: 'full' },
-        { label: 'Grande (80vh)', value: 'large' },
-        { label: 'Mediana (60vh)', value: 'medium' },
-        { label: 'Auto (contenido)', value: 'auto' },
-      ],
-      defaultValue: 'large',
+      name: 'ratingText',
+      type: 'text',
+      label: 'Texto de satisfacción / entrega',
+      defaultValue: 'Más de +250 proyectos entregados con éxito',
+      admin: {
+        condition: (_data, siblingData) => Boolean(siblingData?.showRating),
+      },
     },
     {
-      name: 'textColor',
-      type: 'select',
-      label: 'Color del texto',
-      options: [
-        { label: 'Blanco (para fondos oscuros)', value: 'white' },
-        { label: 'Navy (para fondos claros)', value: 'navy' },
+      name: 'avatars',
+      type: 'array',
+      label: 'Fotos de clientes (avatares)',
+      admin: {
+        condition: (_data, siblingData) => Boolean(siblingData?.showRating),
+      },
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Foto del cliente',
+        },
       ],
-      defaultValue: 'white',
     },
   ],
 }

@@ -2,48 +2,55 @@ import { Block } from 'payload'
 
 export const TestimonialsBlock: Block = {
   slug: 'testimonials',
-  labels: { singular: 'Testimonio', plural: 'Testimonios' },
+  labels: { singular: 'Sección de Testimonios', plural: 'Secciones de Testimonios' },
   fields: [
+    {
+      name: 'badge',
+      type: 'text',
+      label: 'Insignia superior',
+      defaultValue: 'Opiniones Reales',
+    },
     {
       name: 'headline',
       type: 'text',
       required: true,
-      label: 'Título de la sección',
+      label: 'Titular principal',
+      defaultValue: 'Respaldados por Nuestros Clientes',
     },
     {
       name: 'subheadline',
       type: 'textarea',
-      label: 'Subtítulo',
+      label: 'Subtítulo (opcional)',
     },
     {
       name: 'testimonials',
       type: 'array',
       required: true,
       minRows: 1,
-      label: 'Testimonios',
+      label: 'Lista de Testimonios',
       labels: { singular: 'Testimonio', plural: 'Testimonios' },
       fields: [
         {
           name: 'quote',
           type: 'textarea',
           required: true,
-          label: 'Testimonio',
+          label: 'Testimonio del cliente',
         },
         {
           name: 'author',
           type: 'text',
           required: true,
-          label: 'Autor',
+          label: 'Nombre del cliente',
         },
         {
           name: 'role',
           type: 'text',
-          label: 'Cargo o empresa',
+          label: 'Cargo / Tipo de cliente (ej. Propietaria Residencial, Director Comercial)',
         },
         {
           name: 'rating',
           type: 'number',
-          label: 'Calificación (1-5)',
+          label: 'Calificación de estrellas (1-5)',
           min: 1,
           max: 5,
           defaultValue: 5,
@@ -52,20 +59,9 @@ export const TestimonialsBlock: Block = {
           name: 'avatar',
           type: 'upload',
           relationTo: 'media',
-          label: 'Foto (opcional)',
+          label: 'Foto de perfil / avatar',
         },
       ],
-    },
-    {
-      name: 'backgroundColor',
-      type: 'select',
-      label: 'Color de fondo',
-      options: [
-        { label: 'Blanco', value: 'white' },
-        { label: 'Gris claro', value: 'gray' },
-        { label: 'Navy', value: 'navy' },
-      ],
-      defaultValue: 'gray',
     },
   ],
 }

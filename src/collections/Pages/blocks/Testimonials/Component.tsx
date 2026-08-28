@@ -1,8 +1,6 @@
 'use client'
 
-import Image from 'next/image'
 import React from 'react'
-
 import { cn } from '@/utilities/ui'
 
 interface TestimonialItem {
@@ -10,128 +8,109 @@ interface TestimonialItem {
   author: string
   role?: string
   rating?: number
-  avatar?: { url: string; alt?: string }
+  avatar?: any
 }
 
 interface TestimonialsBlockProps {
   block: {
-    headline: string
+    badge?: string
+    headline?: string
     subheadline?: string
-    testimonials: TestimonialItem[]
-    backgroundColor?: 'white' | 'gray' | 'navy'
+    testimonials?: TestimonialItem[]
   }
 }
 
-const bgClasses = {
-  white: 'bg-white',
-  gray: 'bg-gray-50',
-  navy: 'bg-brand-navy',
-}
+const defaultTestimonials: TestimonialItem[] = [
+  {
+    avatar: { url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80' },
+    author: 'Anya Petrova',
+    role: 'Propietaria Residencial',
+    quote:
+      'Transformaron nuestra casa por completo. El equipo de Los Castros fue sumamente puntual y profesional en cada etapa de la obra.',
+    rating: 5,
+  },
+  {
+    avatar: { url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80' },
+    author: 'Carlos Mendoza',
+    role: 'Director Comercial',
+    quote:
+      'De principio a fin, la comunicación fue fluida y clara. Entregaron la obra comercial exactamente en la fecha acordada.',
+    rating: 5,
+  },
+  {
+    avatar: { url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80' },
+    author: 'Isabelle Dubois',
+    role: 'Cliente Residencial',
+    quote:
+      'La calidad de los acabados en la cocina y baños superó nuestras expectativas. ¡Recomendados con los ojos cerrados!',
+    rating: 5,
+  },
+]
 
-const textColorClasses = {
-  white: 'text-brand-navy',
-  gray: 'text-brand-navy',
-  navy: 'text-white',
-}
+export const TestimonialsBlockComponent: React.FC<TestimonialsBlockProps> = ({ block }) => {
+  const {
+    badge = 'Opiniones Reales',
+    headline = 'Respaldados por Nuestros Clientes',
+    subheadline,
+    testimonials = defaultTestimonials,
+  } = block
 
-const mutedColorClasses = {
-  white: 'text-gray-600',
-  gray: 'text-gray-600',
-  navy: 'text-white/70',
-}
-
-export const TestimonialsBlockComponent = ({ block }: TestimonialsBlockProps) => {
-  const { headline, subheadline, testimonials, backgroundColor = 'gray' } = block
-
-  const isDark = backgroundColor === 'navy'
-  const textColor = textColorClasses[backgroundColor]
-  const mutedColor = mutedColorClasses[backgroundColor]
-  const cardBg = isDark ? 'bg-brand-navy/40 border-white/10' : 'bg-white border-gray-200'
+  const testimonialList = testimonials?.length ? testimonials : defaultTestimonials
 
   return (
-    <section className={cn('py-16 md:py-24 lg:py-32', bgClasses[backgroundColor])}>
-      <div className="container">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          {subheadline && (
-            <p className="font-display text-brand-gold font-medium mb-2 text-lg tracking-wide uppercase">
-              {subheadline}
-            </p>
+    <section id="testimonios" className="py-20 bg-white font-sans">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          {badge && (
+            <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-castro-green mb-2">
+              <span className="w-2 h-2 rounded-full bg-castro-green"></span>
+              <span>{badge}</span>
+            </div>
           )}
-          <h2 className={cn('font-display text-3xl md:text-4xl font-bold', textColor)}>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-castro-navy tracking-tight">
             {headline}
           </h2>
+          {subheadline && <p className="text-slate-600 text-sm mt-3">{subheadline}</p>}
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {testimonials?.map((item, index) => {
-            const rating = Math.min(5, Math.max(1, item.rating ?? 5))
-            const initial = item.author?.trim()?.charAt(0)?.toUpperCase() || '?'
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {testimonialList.map((c, idx) => {
+            const avatarUrl =
+              typeof c.avatar === 'object' && c.avatar?.url
+                ? c.avatar.url
+                : typeof c.avatar === 'string'
+                ? c.avatar
+                : defaultTestimonials[idx % defaultTestimonials.length]?.avatar?.url || ''
+
+            const starsCount = c.rating || 5
 
             return (
-              <figure
-                key={index}
-                className={cn('flex flex-col rounded-xl border p-6 transition-all hover:shadow-xl', cardBg)}
+              <div
+                key={idx}
+                className="bg-castro-lightbg p-6 rounded-2xl border border-slate-200/60 shadow-sm flex flex-col justify-between"
               >
-                <span
-                  aria-hidden="true"
-                  className={cn(
-                    'material-icons-outlined text-4xl mb-3',
-                    isDark ? 'text-brand-gold' : 'text-brand-gold',
-                  )}
-                >
-                  format_quote
-                </span>
-
-                <div className="flex gap-0.5 mb-3" aria-label={`Calificación: ${rating} de 5`}>
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <span
-                      key={i}
-                      aria-hidden="true"
-                      className={cn(
-                        'material-icons-outlined text-base leading-none',
-                        i < rating ? 'text-brand-gold' : 'opacity-30 text-gray-400',
-                      )}
-                    >
-                      star
-                    </span>
-                  ))}
+                <div>
+                  <div className="flex text-castro-yellow text-sm mb-3">
+                    {Array.from({ length: starsCount }).map((_, s) => (
+                      <i key={s} className="fa-solid fa-star"></i>
+                    ))}
+                  </div>
+                  <p className="text-slate-700 text-sm leading-relaxed mb-6 italic">"{c.quote}"</p>
                 </div>
-
-                <blockquote className={cn('font-body leading-relaxed mb-6 flex-1', mutedColor)}>
-                  “{item.quote}”
-                </blockquote>
-
-                <figcaption className="flex items-center gap-3 mt-auto pt-4 border-t"
-                  style={{ borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)' }}
-                >
-                  {item.avatar?.url ? (
-                    <Image
-                      src={item.avatar.url}
-                      alt={item.avatar.alt || item.author}
-                      width={48}
-                      height={48}
-                      className="rounded-full object-cover w-12 h-12"
+                <div className="flex items-center gap-3 pt-4 border-t border-slate-200">
+                  {avatarUrl && (
+                    <img
+                      src={avatarUrl}
+                      alt={c.author}
+                      className="w-10 h-10 rounded-full object-cover"
                     />
-                  ) : (
-                    <span
-                      className={cn(
-                        'w-12 h-12 rounded-full flex items-center justify-center font-display text-xl font-bold flex-shrink-0',
-                        isDark ? 'bg-brand-gold/20 text-brand-gold' : 'bg-brand-green/15 text-brand-green',
-                      )}
-                    >
-                      {initial}
-                    </span>
                   )}
-                  <span className="flex flex-col">
-                    <cite className={cn('font-display font-semibold not-italic', textColor)}>
-                      {item.author}
-                    </cite>
-                    {item.role && (
-                      <span className={cn('font-body text-sm', mutedColor)}>{item.role}</span>
-                    )}
-                  </span>
-                </figcaption>
-              </figure>
+                  <div>
+                    <h4 className="text-sm font-bold text-castro-navy">{c.author}</h4>
+                    {c.role && <p className="text-xs text-slate-500">{c.role}</p>}
+                  </div>
+                </div>
+              </div>
             )
           })}
         </div>

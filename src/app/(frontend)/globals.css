@@ -43,14 +43,35 @@
   --breakpoint-xl: 80rem;
   --breakpoint-2xl: 86rem;
   --font-mono: 'JetBrains Mono', monospace;
-  --font-sans: 'DM Sans', sans-serif;
-  --font-display: 'Space Grotesk', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
   --color-brand-navy: var(--brand-navy);
   --color-brand-green: var(--brand-green);
   --color-brand-gold: var(--brand-gold);
+  --color-castro-navy: #0b2545;
+  --color-castro-darknavy: #07182e;
+  --color-castro-green: #009e49;
+  --color-castro-greenhover: #00833c;
+  --color-castro-yellow: #ffc700;
+  --color-castro-yellowhover: #e5b200;
+  --color-castro-lightbg: #f8faf9;
+  --color-castro-cardbg: #ffffff;
+  --color-castro-textdark: #1e293b;
+  --color-castro-textmuted: #64748b;
 }
 
 @layer utilities {
+  .gradient-overlay {
+    background: linear-gradient(135deg, rgba(11, 37, 69, 0.92) 0%, rgba(7, 24, 46, 0.85) 100%);
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #009e49;
+    border-radius: 9999px;
+  }
+
   .media-frame-green-gold {
     box-shadow:
       -12px -12px 0 0 var(--brand-green),
@@ -249,10 +270,10 @@
   }
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
   }
   h1, h2, h3 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
   }
   code, pre {
     font-family: 'JetBrains Mono', monospace;
