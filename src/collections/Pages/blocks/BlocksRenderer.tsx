@@ -14,6 +14,7 @@ import { CtaBannerBlockComponent } from './CtaBanner/Component'
 import { FeaturesBlockComponent } from './Features/Component'
 import { FaqBlockComponent } from './Faq/Component'
 import { PostsGridBlockComponent } from './PostsGrid/Component'
+import { ColumnBlockComponent } from './Column/Component'
 
 const blockComponents: Record<string, React.FC<any>> = {
   hero: HeroBlockComponent,
@@ -28,6 +29,7 @@ const blockComponents: Record<string, React.FC<any>> = {
   features: FeaturesBlockComponent,
   faq: FaqBlockComponent,
   postsGrid: PostsGridBlockComponent,
+  column: ColumnBlockComponent,
 }
 
 interface BlocksRendererProps {

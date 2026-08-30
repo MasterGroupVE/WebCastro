@@ -400,6 +400,50 @@ export interface Page {
             blockName?: string | null;
             blockType: 'slider';
           }
+        | {
+            columnCount: '1' | '2' | '3' | '4';
+            columns?:
+              | {
+                  contentType?: ('block' | 'text' | 'image') | null;
+                  blockType?:
+                    | (
+                        | 'hero'
+                        | 'aboutUs'
+                        | 'services'
+                        | 'process'
+                        | 'projects'
+                        | 'testimonials'
+                        | 'faq'
+                        | 'ctaBanner'
+                        | 'features'
+                        | 'postsGrid'
+                        | 'slider'
+                      )
+                    | null;
+                  headline?: string | null;
+                  subheadline?: {
+                    root: {
+                      type: string;
+                      children: {
+                        type: any;
+                        version: number;
+                        [k: string]: unknown;
+                      }[];
+                      direction: ('ltr' | 'rtl') | null;
+                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                      indent: number;
+                      version: number;
+                    };
+                    [k: string]: unknown;
+                  } | null;
+                  image?: (number | null) | Media;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'column';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -1324,6 +1368,23 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        column?:
+          | T
+          | {
+              columnCount?: T;
+              columns?:
+                | T
+                | {
+                    contentType?: T;
+                    blockType?: T;
+                    headline?: T;
+                    subheadline?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1778,26 +1839,39 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: number;
-  navItems?:
+  showTopBar?: boolean | null;
+  address?: string | null;
+  phone?: string | null;
+  schedule?: string | null;
+  topCtaText?: string | null;
+  topCtaAction?: ('modal' | 'link') | null;
+  topCtaLink?: string | null;
+  socialLinks?: {
+    facebook?: string | null;
+    instagram?: string | null;
+    linkedin?: string | null;
+    whatsapp?: string | null;
+  };
+  /**
+   * Si no subes una imagen, se mostrará el isotipo vectorial oficial de Los Castros.
+   */
+  logo?: (number | null) | Media;
+  showTextBrand?: boolean | null;
+  companyName?: string | null;
+  companyHighlight?: string | null;
+  companySuffix?: string | null;
+  navLinks?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
+        label: string;
+        href: string;
         id?: string | null;
       }[]
     | null;
+  phoneButtonText?: string | null;
+  phoneButtonLink?: string | null;
+  mainCtaText?: string | null;
+  mainCtaAction?: ('modal' | 'link') | null;
+  mainCtaLink?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1807,23 +1881,42 @@ export interface Header {
  */
 export interface Footer {
   id: number;
-  navItems?:
+  /**
+   * Si no subes una imagen, se mostrará el isotipo oficial blanco de Los Castros.
+   */
+  logo?: (number | null) | Media;
+  companyName?: string | null;
+  description?: string | null;
+  socialLinks?: {
+    facebook?: string | null;
+    instagram?: string | null;
+    linkedin?: string | null;
+    whatsapp?: string | null;
+  };
+  column2Title?: string | null;
+  companyLinks?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  column3Title?: string | null;
+  serviceLinks?:
+    | {
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  newsletterTitle?: string | null;
+  newsletterDescription?: string | null;
+  newsletterButtonText?: string | null;
+  copyrightText?: string | null;
+  legalLinks?:
+    | {
+        label: string;
+        href: string;
         id?: string | null;
       }[]
     | null;
@@ -1835,20 +1928,38 @@ export interface Footer {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
-  navItems?:
+  showTopBar?: T;
+  address?: T;
+  phone?: T;
+  schedule?: T;
+  topCtaText?: T;
+  topCtaAction?: T;
+  topCtaLink?: T;
+  socialLinks?:
     | T
     | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
+        facebook?: T;
+        instagram?: T;
+        linkedin?: T;
+        whatsapp?: T;
+      };
+  logo?: T;
+  showTextBrand?: T;
+  companyName?: T;
+  companyHighlight?: T;
+  companySuffix?: T;
+  navLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
         id?: T;
       };
+  phoneButtonText?: T;
+  phoneButtonLink?: T;
+  mainCtaText?: T;
+  mainCtaAction?: T;
+  mainCtaLink?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1858,18 +1969,42 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  navItems?:
+  logo?: T;
+  companyName?: T;
+  description?: T;
+  socialLinks?:
     | T
     | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
+        facebook?: T;
+        instagram?: T;
+        linkedin?: T;
+        whatsapp?: T;
+      };
+  column2Title?: T;
+  companyLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  column3Title?: T;
+  serviceLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  newsletterTitle?: T;
+  newsletterDescription?: T;
+  newsletterButtonText?: T;
+  copyrightText?: T;
+  legalLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
         id?: T;
       };
   updatedAt?: T;

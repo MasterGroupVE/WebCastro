@@ -48,9 +48,7 @@ export const seed = async ({
     globals.map((global) =>
       payload.updateGlobal({
         slug: global,
-        data: {
-          navItems: [],
-        },
+        data: {} as any,
         depth: 0,
         context: {
           disableRevalidate: true,
@@ -226,54 +224,69 @@ export const seed = async ({
     payload.updateGlobal({
       slug: 'header',
       data: {
-        navItems: [
-          {
-            link: {
-              type: 'custom',
-              label: 'Posts',
-              url: '/posts',
-            },
-          },
-          {
-            link: {
-              type: 'reference',
-              label: 'Contact',
-              reference: {
-                relationTo: 'pages',
-                value: contactPage.id,
-              },
-            },
-          },
+        showTopBar: true,
+        address: 'El Junquito, Km 23 / Caracas, Venezuela',
+        phone: '+58 (412) 964-3616 / +58 (414) 390-4751',
+        schedule: 'Lun - Vie: 8:00 AM - 5:00 PM',
+        topCtaText: 'Solicitar Cotización',
+        topCtaAction: 'modal',
+        socialLinks: {
+          facebook: '#',
+          instagram: '#',
+          linkedin: '#',
+          whatsapp: 'https://wa.me/584129643616',
+        },
+        companyName: 'Construcciones',
+        companyHighlight: 'Los Castros',
+        companySuffix: 'C.A.',
+        navLinks: [
+          { label: 'Inicio', href: '#inicio' },
+          { label: 'Nosotros', href: '#nosotros' },
+          { label: 'Servicios', href: '#servicios' },
+          { label: 'Proyectos', href: '#proyectos' },
+          { label: 'Clientes', href: '#testimonios' },
+          { label: 'Preguntas', href: '#faq' },
+          { label: 'Blog', href: '#blog' },
         ],
+        phoneButtonText: '+58 (412) 964-3616',
+        phoneButtonLink: 'tel:+584129643616',
+        mainCtaText: 'Consulta Gratuita',
+        mainCtaAction: 'modal',
       },
     }),
     payload.updateGlobal({
       slug: 'footer',
       data: {
-        navItems: [
-          {
-            link: {
-              type: 'custom',
-              label: 'Admin',
-              url: '/admin',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Source Code',
-              newTab: true,
-              url: 'https://github.com/payloadcms/payload/tree/3.x/templates/website',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Payload',
-              newTab: true,
-              url: 'https://payloadcms.com/',
-            },
-          },
+        companyName: 'Construcciones Los Castros C.A.',
+        description:
+          'Soluciones integrales de ingeniería civil, geotecnia, obras viales, pantallas atirantadas, obras hidráulicas y sector petrolero. Construyendo con bases sólidas y garantía técnica.',
+        socialLinks: {
+          facebook: '#',
+          instagram: '#',
+          linkedin: '#',
+          whatsapp: 'https://wa.me/584129643616',
+        },
+        column2Title: 'Empresa',
+        companyLinks: [
+          { label: 'Sobre Nosotros', href: '#nosotros' },
+          { label: 'Servicios', href: '#servicios' },
+          { label: 'Proyectos', href: '#proyectos' },
+          { label: 'Testimonios', href: '#testimonios' },
+        ],
+        column3Title: 'Servicios',
+        serviceLinks: [
+          { label: 'Obras Viales y Autopistas', href: '#servicios' },
+          { label: 'Pilotaje y Geotecnia', href: '#servicios' },
+          { label: 'Petróleo, Gas e Hidrocarburos', href: '#servicios' },
+          { label: 'Obras Hidráulicas y Sanitarias', href: '#servicios' },
+        ],
+        newsletterTitle: 'Boletín Informativo',
+        newsletterDescription: 'Recibe consejos de remodelación y novedades de construcción.',
+        newsletterButtonText: 'Suscribirme',
+        copyrightText: '© 2026 Construcciones Los Castros C.A. Todos los derechos reservados.',
+        legalLinks: [
+          { label: 'Política de Privacidad', href: '#' },
+          { label: 'Términos de Servicio', href: '#' },
         ],
       },
     }),

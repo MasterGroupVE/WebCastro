@@ -56,7 +56,7 @@ export const HeroBlockComponent: React.FC<HeroBlockProps> = ({ block }) => {
       ? backgroundImage.url
       : typeof backgroundImage === 'string'
       ? backgroundImage
-      : 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=2000&q=80'
+      : '/hero-castro.jpg'
 
   const avatarUrls =
     avatars && avatars.length > 0

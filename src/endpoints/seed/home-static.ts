@@ -6,149 +6,149 @@ export const homeStatic: any = {
   layout: [
     {
       blockType: 'hero',
-      badge: 'Líderes en Construcción y Remodelaciones Integrales',
-      headline: 'Excelencia y Calidad Enfocada en',
-      highlightText: 'Tus Proyectos',
+      badge: 'Construcción de Obras Civiles, Infraestructura y Geotecnia',
+      headline: 'Soluciones de Ingeniería y Construcción con',
+      highlightText: 'Calidad y Compromiso',
       subheadline:
-        'Ofrecemos soluciones de construcción, ingeniería y remodelación residencial y comercial de alto nivel. Garantizamos acabados impecables, materiales duraderos y entrega a tiempo.',
+        'Especialistas en obras civiles, vialidad, pantallas atirantadas, estabilización de taludes, pilotaje, obras hidráulicas y sector petrolero con más de 15 años de liderazgo técnico.',
       primaryCtaText: 'Explorar Servicios',
       primaryCtaLink: '#servicios',
-      secondaryCtaText: 'Agendar Inspección',
+      secondaryCtaText: 'Solicitar Inspección Técnica',
       secondaryCtaType: 'modal',
       backgroundImage: {
-        url: 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=2000&q=80',
+        url: '/hero-castro.jpg',
       },
       showRating: true,
       ratingScore: '5/5',
-      ratingText: 'Más de +250 proyectos entregados con éxito',
+      ratingText: 'Más de +250 proyectos y contratos entregados con éxito',
     },
     {
       blockType: 'aboutUs',
       badge: 'Sobre Nosotros',
-      headline: 'Los Profesionales Detrás de Cada Renovación y Estructura',
+      headline: 'Líderes en Obras Civiles, Geociencias y Construcción Pesada',
       paragraph1:
-        'En Construcciones Los Castros C.A. somos un equipo apasionado de ingenieros, arquitectos y maestros de obra dedicados a transformar espacios y erigir estructuras sólidas. Cuidamos cada detalle desde el diseño inicial hasta los acabados finales.',
+        'En Construcciones Los Castros C.A. brindamos servicios integrales de ingeniería civil, geología, geotecnia, topografía, obras viales, hidráulicas, eléctricas y mecánicas para el sector público y privado.',
       paragraph2:
-        'Nuestra filosofía se basa en tres pilares: transparencia presupuestaria, el uso de materiales de primera calidad y el cumplimiento riguroso de los tiempos de entrega.',
+        'Nos apegamos a los más estrictos estándares de calidad, seguridad y normativas técnicas nacionales e internacionales, garantizando solidez estructural y cumplimiento riguroso de los plazos.',
       features: [
-        { text: 'Atención Personalizada' },
-        { text: 'Supervisión en Sitio' },
+        { text: 'Supervisión Geotécnica en Sitio' },
+        { text: 'Laboratorio y Control de Calidad' },
       ],
-      ctaText: 'Conoce Más de Nuestro Equipo',
+      ctaText: 'Conoce Nuestra Trayectoria',
       ctaAction: 'modal',
       image1: {
-        url: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80',
+        url: '/hero-castro.jpg',
       },
       stat1Value: '+15 Años',
-      stat1Label: 'De Experiencia y Liderazgo',
+      stat1Label: 'De Trayectoria y Liderazgo',
       stat2Value: '+78k M²',
-      stat2Label: 'Proyectos Construidos',
+      stat2Label: 'Obras e Infraestructuras',
       image2: {
-        url: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=80',
+        url: 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?w=800&q=80',
       },
-      guaranteeBadgeTitle: 'Garantía Escrita',
-      guaranteeBadgeText: '100% Calidad Garantizada',
+      guaranteeBadgeTitle: 'Garantía Técnica',
+      guaranteeBadgeText: '100% Calidad y Respaldo de Obra',
     },
     {
       blockType: 'services',
-      badge: 'Nuestros Servicios',
-      headline: 'Espacios Que Se Sienten Perfectos',
+      badge: 'Nuestras Especialidades',
+      headline: 'Ingeniería y Construcción de Alto Rendimiento',
       layout: 'tabs',
       showEmergencyBox: true,
-      emergencyTitle: '¿Servicio Urgente o Cotización?',
-      emergencyPhone: '+58 (212) 555-CASTRO',
-      emergencyLink: 'tel:+582125552278',
+      emergencyTitle: '¿Consultoría o Cotización Urgente?',
+      emergencyPhone: '+58 (412) 964-3616',
+      emergencyLink: 'tel:+584129643616',
       services: [
         {
-          tabLabel: 'Remodelaciones',
-          title: '1. Remodelación Integral de Cocinas y Baños',
+          tabLabel: 'Obras Viales y Civiles',
+          title: '1. Obras Civiles, Autopistas y Vialidad',
           description:
-            'Transformamos espacios residenciales optimizando la distribución, instalando griferías avanzadas, acabados en porcelanato y mobiliario a medida de alta durabilidad.',
+            'Construcción y rehabilitación de autopistas, puentes, viaductos, pavimentación rígida y flexible, fallas de borde y movimientos masivos de tierra.',
           image: {
-            url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=1000&q=80',
+            url: '/hero-castro.jpg',
           },
-          badge: 'Residencial Los Palos Grandes',
+          badge: 'Autopista Gran Mariscal de Ayacucho',
           features: [
-            { text: 'Diseño 3D y renderizado previo' },
-            { text: 'Instalaciones hidráulicas y eléctricas' },
-            { text: 'Acabados de lujo y carpintería fina' },
+            { text: 'Construcción y rehabilitación de vías' },
+            { text: 'Corrección de fallas de borde y pavimentos' },
+            { text: 'Movimientos de tierra y nivelación' },
           ],
         },
         {
-          tabLabel: 'Obras Civiles',
-          title: '2. Construcción de Obras Civiles y Estructuras',
+          tabLabel: 'Pilotaje y Geotecnia',
+          title: '2. Pilotaje, Pantallas Atirantadas y Geotecnia',
           description:
-            'Edificación desde cero de galpones, estructuras de concreto armado, muros de contención y locales comerciales con ingeniería de alta precisión.',
+            'Estabilización de taludes, pantallas atirantadas, cortinas de pilotes, fundaciones profundas, muros de contención y estudios de suelo para obras civiles.',
           image: {
             url: 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?w=1000&q=80',
           },
-          badge: 'Estructura Comercial La Trinidad',
+          badge: 'Pantallas Atirantadas El Junquito',
           features: [
-            { text: 'Fundaciones y vaciado de losas' },
-            { text: 'Cálculo e ingeniería estructural' },
-            { text: 'Control de calidad y pruebas de resistencia' },
+            { text: 'Pilotaje y fundaciones profundas' },
+            { text: 'Pantallas atirantadas y anclajes' },
+            { text: 'Estabilización de taludes y macizos rocosos' },
           ],
         },
         {
-          tabLabel: 'Mantenimiento',
-          title: '3. Mantenimiento Preventivo y Corrección Estructural',
+          tabLabel: 'Petróleo y Gas',
+          title: '3. Obras Civiles para Petróleo, Gas e Hidrocarburos',
           description:
-            'Soluciones efectivas para impermeabilización, reparación de grietas, frisos, pintura de fachadas e inspección técnica periódica.',
+            'Ejecución de proyectos de envergadura en divisiones Oriente y Occidente: poliductos, gasoductos, adecuaciones y obras civiles para la industria petrolera.',
           image: {
             url: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1000&q=80',
           },
-          badge: 'Mantenimiento Torre Empresarial',
+          badge: 'Sector Hidrocarburos Oriente-Occidente',
           features: [
-            { text: 'Impermeabilización de mantos asfálticos' },
-            { text: 'Restauración de fachadas e hilos de agua' },
-            { text: 'Refuerzo antisísmico y de columnas' },
+            { text: 'Tendido y montaje de poliductos' },
+            { text: 'Obras civiles para plantas industriales' },
+            { text: 'Cumplimiento de normativas ambientales' },
           ],
         },
         {
-          tabLabel: 'Diseño e Interiores',
-          title: '4. Diseño Arquitectónico y Decoración de Interiores',
+          tabLabel: 'Obras Hidráulicas',
+          title: '4. Obras Hidráulicas, Drenajes y Canalizaciones',
           description:
-            'Creación de ambientes armónicos, selección de acabados, revestimientos de vanguardia e iluminación inteligente adaptada a tu estilo.',
+            'Canalización de ríos y quebradas, construcción de cajones de paso, redes sanitarias, pluviales y protección contra inundaciones.',
           image: {
-            url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1000&q=80',
+            url: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1000&q=80',
           },
-          badge: 'Penthouse Valle Arriba',
+          badge: 'Canalización Quebrada Mamera',
           features: [
-            { text: 'Planos arquitectónicos y permisos' },
-            { text: 'Diseño de iluminación moderna (LED)' },
-            { text: 'Mobiliario y revestimientos exclusivos' },
+            { text: 'Construcción de cajones y canalizaciones' },
+            { text: 'Drenajes superficiales y profundos' },
+            { text: 'Redes sanitarias e hidráulicas' },
           ],
         },
       ],
     },
     {
       blockType: 'process',
-      badge: 'Proceso de Trabajo',
-      headline: 'Transformaciones Paso a Paso',
+      badge: 'Metodología Técnica',
+      headline: 'Metodología y Ejecución de Obra',
       subheadline:
-        'Garantizamos un desarrollo estructurado para que disfrutes del proceso con total tranquilidad.',
+        'Garantizamos rigor técnico, seguridad industrial y cumplimiento normativo en cada etapa del proyecto.',
       steps: [
         {
           stepNumber: '01',
-          title: 'Planificación y Diseño',
+          title: 'Estudios Previos y Geotecnia',
           description:
-            'Evaluamos tus necesidades en sitio, elaboramos los planos, presupuestos transparentes y la programación de la obra.',
+            'Exploración de suelos, levantamiento topográfico, cálculos estructurales y planificación presupuestaria por partida.',
           icon: 'fa-clipboard-list',
           color: 'yellow',
         },
         {
           stepNumber: '02',
-          title: 'Ejecución Profesional',
+          title: 'Ejecución con Maquinaria Pesada',
           description:
-            'Nuestro equipo especializado ejecuta la construcción con supervisión constante, control de calidad y seguridad total.',
+            'Despliegue de equipo especializado, pilotaje, perforación, vaciado de concreto y supervisión continua de obra.',
           icon: 'fa-hammer',
           color: 'green',
         },
         {
           stepNumber: '03',
-          title: 'Entrega y Garantía',
+          title: 'Control de Calidad y Entrega',
           description:
-            'Realizamos una inspección exhaustiva final y entregamos la obra lista para ser habitada o utilizada, respaldada por garantía.',
+            'Ensayos de resistencia de materiales, pruebas de carga y entrega de acta de culminación con total garantía.',
           icon: 'fa-key',
           color: 'blue',
         },
@@ -156,82 +156,82 @@ export const homeStatic: any = {
     },
     {
       blockType: 'projects',
-      badge: 'Proyectos Recientes',
-      headline: 'Transformando Casas y Obras en Hogares',
+      badge: 'Portafolio de Obras',
+      headline: 'Grandes Obras de Infraestructura Ejecutadas',
       projects: [
         {
           image: {
-            url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
+            url: '/hero-castro.jpg',
           },
-          category: 'Residencial',
+          category: 'Vialidad',
           categoryColor: 'green',
-          title: 'Residencia La Castellana',
+          title: 'Autopista Gran Mariscal de Ayacucho',
           description:
-            'Remodelación completa de interiores, iluminación automatizada y acabados de lujo.',
-          location: 'Caracas',
-          status: 'Completado',
+            'Construcción de tramos de autopista, cajones de concreto armado, movimientos de tierra y pavimentación pesada.',
+          location: 'Oriente',
+          status: 'Culminado',
         },
         {
           image: {
-            url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
+            url: 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?w=800&q=80',
           },
-          category: 'Comercial',
+          category: 'Geotecnia',
           categoryColor: 'navy',
-          title: 'Oficinas Torre Financiera',
+          title: 'Pantalla Atirantada Carretera El Junquito',
           description:
-            'Adecuación estructural, tabiquería de drywall y sistemas integrados.',
-          location: 'Valencia',
-          status: 'Completado',
+            'Estabilización de taludes críticos, micropilotes, drenajes y pantalla atirantada en progreso de montaña.',
+          location: 'Caracas - Dtto. Capital',
+          status: 'Culminado',
         },
         {
           image: {
             url: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=800&q=80',
           },
-          category: 'Remodelación',
+          category: 'Hidráulica',
           categoryColor: 'yellow',
-          title: 'Quinta San Francisco',
+          title: 'Canalización Quebrada Mamera',
           description:
-            'Ampliación de terraza, piscina y reforzamiento de fundaciones.',
-          location: 'Maracay',
-          status: 'Completado',
+            'Construcción de cajón hidráulico, muros de contención y canalización de descarga al Río Guaire.',
+          location: 'Caracas',
+          status: 'Culminado',
         },
       ],
-      ctaText: 'Solicitar Presupuesto para Mi Proyecto',
+      ctaText: 'Solicitar Asesoría para Nuevos Proyectos',
       ctaAction: 'modal',
     },
     {
       blockType: 'testimonials',
-      badge: 'Opiniones Reales',
-      headline: 'Respaldados por Nuestros Clientes',
+      badge: 'Confianza Comprobada',
+      headline: 'Respaldados por Nuestros Clientes y Contratantes',
       testimonials: [
-        {
-          avatar: {
-            url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80',
-          },
-          author: 'Anya Petrova',
-          role: 'Propietaria Residencial',
-          quote:
-            'Transformaron nuestra casa por completo. El equipo de Los Castros fue sumamente puntual y profesional en cada etapa de la obra.',
-          rating: 5,
-        },
         {
           avatar: {
             url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80',
           },
-          author: 'Carlos Mendoza',
-          role: 'Director Comercial',
+          author: 'Ing. Supervisor de Obras',
+          role: 'Sector Infraestructura',
           quote:
-            'De principio a fin, la comunicación fue fluida y clara. Entregaron la obra comercial exactamente en la fecha acordada.',
+            'Construcciones Los Castros demostró solvencia técnica y capacidad operativa en obras de gran complejidad como pantallas atirantadas y taludes.',
+          rating: 5,
+        },
+        {
+          avatar: {
+            url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80',
+          },
+          author: 'Dirección de Proyectos',
+          role: 'Sector Hidrocarburos',
+          quote:
+            'Cumplimiento estricto de los cronogramas y apego a los estándares de seguridad industrial y calidad en la ejecución de poliductos.',
           rating: 5,
         },
         {
           avatar: {
             url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80',
           },
-          author: 'Isabelle Dubois',
-          role: 'Cliente Residencial',
+          author: 'Gerencia Técnica',
+          role: 'Desarrollo Urbano',
           quote:
-            'La calidad de los acabados en la cocina y baños superó nuestras expectativas. ¡Recomendados con los ojos cerrados!',
+            'Excelente respuesta técnica y maquinaria adecuada para movimientos masivos de tierra y muros de contención.',
           rating: 5,
         },
       ],
@@ -239,64 +239,64 @@ export const homeStatic: any = {
     {
       blockType: 'faq',
       badge: 'Preguntas Frecuentes',
-      headline: 'Lo Que Debes Saber Antes de Iniciar',
+      headline: 'Consultas Técnicas y de Contratación',
       questions: [
         {
-          question: '¿Cuánto tiempo toma una remodelación residencial completa?',
+          question: '¿Qué tipo de obras y proyectos ejecuta Construcciones Los Castros C.A.?',
           answer:
-            'El tiempo varía según el alcance. Generalmente, renovaciones pequeñas tardan de 2 a 4 semanas, mientras que proyectos integrales completas toman entre 6 y 12 semanas. Elaboramos un cronograma detallado desde el día uno.',
+            'Ejecutamos obras civiles de gran envergadura: vialidad, autopistas, puentes, estabilización de taludes, pantallas atirantadas, muros de contención, pilotaje, canalizaciones hidráulicas, edificaciones y obras para el sector petrolero y gas.',
         },
         {
-          question: '¿Ofrecen un presupuesto fijo y cerrado?',
+          question: '¿Cuentan con maquinaria pesada propia y equipo técnico especializado?',
           answer:
-            'Sí, presentamos presupuestos transparentes por partida de obra. Salvo modificaciones solicitadas explícitamente por el cliente durante la ejecución, el costo acordado se mantiene.',
+            'Sí, disponemos de flota de maquinaria pesada (excavadoras, camiones de volteo, piloteras, motoniveladoras, rodillos compactadores) y un equipo multidisciplinario de ingenieros civiles, geotécnicos y topógrafos.',
         },
         {
-          question: '¿Los materiales de construcción están incluidos en el presupuesto?',
+          question: '¿Prestan servicios a nivel nacional en toda Venezuela?',
           answer:
-            'Ofrecemos la modalidad "llave en mano" que incluye tanto materiales de obra gruesa como fina, o podemos trabajar bajo modalidad de suministro directo según tus preferencias.',
+            'Sí, hemos desarrollado proyectos de infraestructura a nivel nacional, con divisiones operativas en la región Capital, Central, Oriente y Occidente.',
         },
         {
-          question: '¿Puedo habitar la vivienda mientras se realiza la remodelación?',
+          question: '¿Cómo solicitar una inspección técnica o cotización?',
           answer:
-            'En remodelaciones parciales (como baños o terrazas) coordinamos el trabajo por fases para minimizar las molestias. En obras integrales recomendamos desocupar temporalmente por seguridad e higiene.',
+            'Puedes contactarnos a través de nuestros números telefónicos (+58 412-9643616 / +58 414-3904751), enviarnos un correo a construccionesloscastrosca@gmail.com o hacer clic en "Solicitar Inspección Técnica" en la web.',
         },
       ],
     },
     {
       blockType: 'postsGrid',
-      badge: 'Artículos y Consejos',
-      headline: 'Blog de Innovación y Remodelaciones',
+      badge: 'Artículos y Novedades',
+      headline: 'Ingeniería, Geotecnia y Avances en Construcción',
       customPosts: [
         {
           image: {
-            url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&q=80',
+            url: '/hero-castro.jpg',
           },
-          category: 'Mantenimiento',
-          title: 'Claves para Elegir los Mejores Materiales de Obra',
+          category: 'Geotecnia',
+          title: 'Importancia de las Pantallas Atirantadas en la Estabilización de Vías',
           description:
-            'Descubre qué considerar al comprar griferías, porcelanatos y aislamiento térmico.',
+            'Análisis de la ingeniería geotécnica aplicada a taludes montañosos y prevención de fallas de borde.',
           link: '/posts',
         },
         {
           image: {
-            url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=80',
+            url: 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?w=600&q=80',
           },
-          category: 'Tendencias',
-          title: 'Cómo Maximizar la Iluminación Natural en Tu Hogar',
+          category: 'Infraestructura',
+          title: 'Buenas Prácticas en el Vaciado de Concreto y Cimentaciones Profundas',
           description:
-            'Estrategias arquitectónicas para aprovechar la luz y reducir el consumo eléctrico.',
+            'Control de calidad, pruebas de laboratorio y resistencia estructural en fundaciones.',
           link: '/posts',
         },
       ],
     },
     {
       blockType: 'ctaBanner',
-      headline: '¿Necesitas Ayuda Inmediata con Tu Proyecto?',
-      text: 'Habla directamente con uno de nuestros ingenieros supervisores hoy mismo.',
-      buttonText: 'Llámanos: +58 (212) 555-CASTRO',
+      headline: '¿Tienes un Proyecto de Infraestructura u Obra Civil?',
+      text: 'Comunícate con nuestro equipo de ingenieros y obtén asesoría técnica de primer nivel.',
+      buttonText: 'Llámanos: +58 (412) 964-3616',
       buttonAction: 'link',
-      buttonLink: 'tel:+582125552278',
+      buttonLink: 'tel:+584129643616',
       backgroundColor: 'yellow',
     },
   ],

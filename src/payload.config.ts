@@ -59,6 +59,7 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
+      connectionPoolSize: 20, // Aumentar el tamaño del pool de conexiones
     },
   }),
   collections: [Pages, Posts, Media, Categories, Users],

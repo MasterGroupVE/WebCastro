@@ -12,6 +12,7 @@ import { CtaBannerBlock } from './blocks/CtaBanner'
 import { FeaturesBlock } from './blocks/Features'
 import { FaqBlock } from './blocks/Faq'
 import { PostsGridBlock } from './blocks/PostsGrid'
+import { ColumnBlock } from './blocks/Column/config'
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -55,6 +56,7 @@ const Pages: CollectionConfig = {
         ContactBlock,
         FeaturesBlock,
         SliderBlock,
+        ColumnBlock,
       ],
     },
   ],
