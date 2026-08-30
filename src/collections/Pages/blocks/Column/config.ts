@@ -65,12 +65,8 @@ export const ColumnBlock: Block = {
         },
         {
           name: 'subheadline',
-          type: 'richText',
+          type: 'textarea',
           label: 'Descripción / párrafo',
-          admin: {
-            condition: (_data, siblingData) =>
-              siblingData?.contentType === 'text' || siblingData?.contentType === 'block',
-          },
         },
         {
           name: 'image',
