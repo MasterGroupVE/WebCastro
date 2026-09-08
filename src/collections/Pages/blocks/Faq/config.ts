@@ -2,33 +2,14 @@ import { Block } from 'payload'
 
 export const FaqBlock: Block = {
   slug: 'faq',
-  labels: { singular: 'Preguntas Frecuentes (FAQ)', plural: 'Preguntas Frecuentes (FAQ)' },
+  labels: { singular: 'FAQ', plural: 'FAQs' },
   fields: [
-    {
-      name: 'badge',
-      type: 'text',
-      label: 'Insignia superior',
-      defaultValue: 'Preguntas Frecuentes',
-    },
-    {
-      name: 'headline',
-      type: 'text',
-      required: true,
-      label: 'Titular principal',
-      defaultValue: 'Lo Que Debes Saber Antes de Iniciar',
-    },
-    {
-      name: 'subheadline',
-      type: 'textarea',
-      label: 'Subtítulo (opcional)',
-    },
     {
       name: 'questions',
       type: 'array',
-      required: true,
+      label: 'Preguntas Frecuentes',
       minRows: 1,
-      label: 'Preguntas y Respuestas',
-      labels: { singular: 'Pregunta', plural: 'Preguntas' },
+      maxRows: 10,
       fields: [
         {
           name: 'question',
@@ -40,7 +21,7 @@ export const FaqBlock: Block = {
           name: 'answer',
           type: 'textarea',
           required: true,
-          label: 'Respuesta detallada',
+          label: 'Respuesta',
         },
       ],
     },

@@ -15,6 +15,11 @@ import { FeaturesBlockComponent } from './Features/Component'
 import { FaqBlockComponent } from './Faq/Component'
 import { PostsGridBlockComponent } from './PostsGrid/Component'
 import { ColumnBlockComponent } from './Column/Component'
+import { PortfolioGridBlockComponent } from './PortfolioGrid/Component'
+import { MissionVisionBlockComponent } from './MissionVision/Component'
+import { OrgChartBlockComponent } from './OrgChart/Component'
+import { ClientLogosBlockComponent } from './ClientLogos/Component'
+import { LegalInfoBlockComponent } from './LegalInfo/Component'
 
 const blockComponents: Record<string, React.FC<any>> = {
   hero: HeroBlockComponent,
@@ -30,6 +35,11 @@ const blockComponents: Record<string, React.FC<any>> = {
   faq: FaqBlockComponent,
   postsGrid: PostsGridBlockComponent,
   column: ColumnBlockComponent,
+  portfolioGrid: PortfolioGridBlockComponent,
+  missionVision: MissionVisionBlockComponent,
+  orgChart: OrgChartBlockComponent,
+  clientLogos: ClientLogosBlockComponent,
+  legalInfo: LegalInfoBlockComponent,
 }
 
 interface BlocksRendererProps {

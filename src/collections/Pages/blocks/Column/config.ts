@@ -38,6 +38,7 @@ export const ColumnBlock: Block = {
           type: 'select',
           label: 'Tipo de bloque',
           options: [
+            { label: 'Proyecto', value: 'proyecto' },
             { label: 'Hero', value: 'hero' },
             { label: 'Acerca de', value: 'aboutUs' },
             { label: 'Servicios', value: 'services' },

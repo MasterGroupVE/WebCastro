@@ -2,40 +2,15 @@ import { Block } from 'payload'
 
 export const TestimonialsBlock: Block = {
   slug: 'testimonials',
-  labels: { singular: 'Sección de Testimonios', plural: 'Secciones de Testimonios' },
+  labels: { singular: 'Testimonial', plural: 'Testimonials' },
   fields: [
-    {
-      name: 'badge',
-      type: 'text',
-      label: 'Insignia superior',
-      defaultValue: 'Opiniones Reales',
-    },
-    {
-      name: 'headline',
-      type: 'text',
-      required: true,
-      label: 'Titular principal',
-      defaultValue: 'Respaldados por Nuestros Clientes',
-    },
-    {
-      name: 'subheadline',
-      type: 'textarea',
-      label: 'Subtítulo (opcional)',
-    },
     {
       name: 'testimonials',
       type: 'array',
-      required: true,
+      label: 'Testimonios',
       minRows: 1,
-      label: 'Lista de Testimonios',
-      labels: { singular: 'Testimonio', plural: 'Testimonios' },
+      maxRows: 6,
       fields: [
-        {
-          name: 'quote',
-          type: 'textarea',
-          required: true,
-          label: 'Testimonio del cliente',
-        },
         {
           name: 'author',
           type: 'text',
@@ -45,21 +20,21 @@ export const TestimonialsBlock: Block = {
         {
           name: 'role',
           type: 'text',
-          label: 'Cargo / Tipo de cliente (ej. Propietaria Residencial, Director Comercial)',
+          label: 'Rol o empresa',
+        },
+        {
+          name: 'quote',
+          type: 'textarea',
+          required: true,
+          label: 'Cita o testimonio',
         },
         {
           name: 'rating',
           type: 'number',
-          label: 'Calificación de estrellas (1-5)',
           min: 1,
           max: 5,
+          label: 'Calificación (1-5)',
           defaultValue: 5,
-        },
-        {
-          name: 'avatar',
-          type: 'upload',
-          relationTo: 'media',
-          label: 'Foto de perfil / avatar',
         },
       ],
     },

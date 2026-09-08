@@ -260,153 +260,13 @@ export interface Page {
             blockType: 'process';
           }
         | {
-            badge?: string | null;
-            headline: string;
-            subheadline?: string | null;
-            projects: {
-              title: string;
-              category?: string | null;
-              categoryColor?: ('green' | 'navy' | 'yellow') | null;
-              description?: string | null;
-              location?: string | null;
-              status?: string | null;
-              image?: (number | null) | Media;
-              link?: string | null;
-              id?: string | null;
-            }[];
-            ctaText?: string | null;
-            ctaAction?: ('modal' | 'link') | null;
-            ctaLink?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'projects';
-          }
-        | {
-            badge?: string | null;
-            headline: string;
-            subheadline?: string | null;
-            testimonials: {
-              quote: string;
-              author: string;
-              role?: string | null;
-              rating?: number | null;
-              avatar?: (number | null) | Media;
-              id?: string | null;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'testimonials';
-          }
-        | {
-            badge?: string | null;
-            headline: string;
-            subheadline?: string | null;
-            questions: {
-              question: string;
-              answer: string;
-              id?: string | null;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'faq';
-          }
-        | {
-            badge?: string | null;
-            headline: string;
-            subheadline?: string | null;
-            customPosts?:
-              | {
-                  title: string;
-                  category?: string | null;
-                  description: string;
-                  image?: (number | null) | Media;
-                  link?: string | null;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'postsGrid';
-          }
-        | {
-            headline: string;
-            text?: string | null;
-            buttonText?: string | null;
-            buttonAction?: ('link' | 'modal') | null;
-            buttonLink?: string | null;
-            backgroundColor?: ('yellow' | 'navy' | 'green') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'ctaBanner';
-          }
-        | {
-            headline: string;
-            subheadline?: string | null;
-            contactItems: {
-              /**
-               * Ej: call, mail, location_on, schedule, chat (WhatsApp), language (web)
-               */
-              icon?: string | null;
-              label: string;
-              value: string;
-              /**
-               * Ej: tel:+584121234567, mailto:info@empresa.com, https://wa.me/584121234567
-               */
-              link?: string | null;
-              id?: string | null;
-            }[];
-            /**
-             * Pega la URL src del iframe de Google Maps (Compartir → Insertar un mapa → copiar solo el src)
-             */
-            mapEmbedUrl?: string | null;
-            backgroundColor?: ('white' | 'gray' | 'navy') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'contact';
-          }
-        | {
-            headline: string;
-            subheadline?: string | null;
-            items: {
-              /**
-               * Ej: architecture, construction, engineering, verified, handshake
-               */
-              icon?: string | null;
-              title: string;
-              description?: string | null;
-              id?: string | null;
-            }[];
-            backgroundColor?: ('white' | 'gray' | 'navy') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'features';
-          }
-        | {
-            slides: {
-              image: number | Media;
-              title?: string | null;
-              subtitle?: string | null;
-              ctaText?: string | null;
-              ctaLink?: string | null;
-              id?: string | null;
-            }[];
-            autoplay?: boolean | null;
-            /**
-             * Milisegundos entre diapositivas (mínimo 2000)
-             */
-            interval?: number | null;
-            height?: ('full' | 'large' | 'medium') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'slider';
-          }
-        | {
             columnCount: '1' | '2' | '3' | '4';
             columns?:
               | {
                   contentType?: ('block' | 'text' | 'image') | null;
                   blockType?:
                     | (
+                        | 'proyecto'
                         | 'hero'
                         | 'aboutUs'
                         | 'services'
@@ -429,6 +289,166 @@ export interface Page {
             id?: string | null;
             blockName?: string | null;
             blockType: 'column';
+          }
+        | {
+            testimonials?:
+              | {
+                  author: string;
+                  role?: string | null;
+                  quote: string;
+                  rating?: number | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonials';
+          }
+        | {
+            questions?:
+              | {
+                  question: string;
+                  answer: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faq';
+          }
+        | {
+            headline: string;
+            subheadline?: string | null;
+            buttonText: string;
+            buttonAction: 'modal' | 'link';
+            buttonLink?: string | null;
+            backgroundColor?: ('yellow' | 'navy' | 'green') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
+        | {
+            badge?: string | null;
+            headline: string;
+            description?: string | null;
+            categories?:
+              | {
+                  label: string;
+                  value: string;
+                  id?: string | null;
+                }[]
+              | null;
+            projects?:
+              | {
+                  title: string;
+                  category: string;
+                  location?: string | null;
+                  description?: string | null;
+                  image?: (number | null) | Media;
+                  badgeText?: string | null;
+                  status?: string | null;
+                  detailTitle?: string | null;
+                  detailDescription?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'portfolioGrid';
+          }
+        | {
+            badge?: string | null;
+            headline: string;
+            subheadline?: string | null;
+            vision: {
+              label?: string | null;
+              title: string;
+              text: string;
+              footerLeft?: string | null;
+              footerRight?: string | null;
+            };
+            mision: {
+              label?: string | null;
+              title: string;
+              text: string;
+              footerLeft?: string | null;
+              footerRight?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'missionVision';
+          }
+        | {
+            badge?: string | null;
+            headline: string;
+            subheadline?: string | null;
+            topNode: {
+              label?: string | null;
+              title: string;
+              subtitle?: string | null;
+            };
+            adminNodes?:
+              | {
+                  icon?: string | null;
+                  title: string;
+                  description?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            operationalNodes?:
+              | {
+                  icon?: string | null;
+                  title: string;
+                  description?: string | null;
+                  color?: ('teal' | 'amber' | 'blue' | 'emerald') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'orgChart';
+          }
+        | {
+            badge?: string | null;
+            headline: string;
+            subheadline?: string | null;
+            clients?:
+              | {
+                  name: string;
+                  description?: string | null;
+                  icon?: string | null;
+                  logo?: (number | null) | Media;
+                  id?: string | null;
+                }[]
+              | null;
+            additionalClientsText?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'clientLogos';
+          }
+        | {
+            badge?: string | null;
+            headline: string;
+            description?: string | null;
+            checklist?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            legalFields?:
+              | {
+                  label: string;
+                  value: string;
+                  highlight?: boolean | null;
+                  subtext?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            addressText?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'legalInfo';
           }
       )[]
     | null;
@@ -1208,152 +1228,6 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        projects?:
-          | T
-          | {
-              badge?: T;
-              headline?: T;
-              subheadline?: T;
-              projects?:
-                | T
-                | {
-                    title?: T;
-                    category?: T;
-                    categoryColor?: T;
-                    description?: T;
-                    location?: T;
-                    status?: T;
-                    image?: T;
-                    link?: T;
-                    id?: T;
-                  };
-              ctaText?: T;
-              ctaAction?: T;
-              ctaLink?: T;
-              id?: T;
-              blockName?: T;
-            };
-        testimonials?:
-          | T
-          | {
-              badge?: T;
-              headline?: T;
-              subheadline?: T;
-              testimonials?:
-                | T
-                | {
-                    quote?: T;
-                    author?: T;
-                    role?: T;
-                    rating?: T;
-                    avatar?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        faq?:
-          | T
-          | {
-              badge?: T;
-              headline?: T;
-              subheadline?: T;
-              questions?:
-                | T
-                | {
-                    question?: T;
-                    answer?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        postsGrid?:
-          | T
-          | {
-              badge?: T;
-              headline?: T;
-              subheadline?: T;
-              customPosts?:
-                | T
-                | {
-                    title?: T;
-                    category?: T;
-                    description?: T;
-                    image?: T;
-                    link?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        ctaBanner?:
-          | T
-          | {
-              headline?: T;
-              text?: T;
-              buttonText?: T;
-              buttonAction?: T;
-              buttonLink?: T;
-              backgroundColor?: T;
-              id?: T;
-              blockName?: T;
-            };
-        contact?:
-          | T
-          | {
-              headline?: T;
-              subheadline?: T;
-              contactItems?:
-                | T
-                | {
-                    icon?: T;
-                    label?: T;
-                    value?: T;
-                    link?: T;
-                    id?: T;
-                  };
-              mapEmbedUrl?: T;
-              backgroundColor?: T;
-              id?: T;
-              blockName?: T;
-            };
-        features?:
-          | T
-          | {
-              headline?: T;
-              subheadline?: T;
-              items?:
-                | T
-                | {
-                    icon?: T;
-                    title?: T;
-                    description?: T;
-                    id?: T;
-                  };
-              backgroundColor?: T;
-              id?: T;
-              blockName?: T;
-            };
-        slider?:
-          | T
-          | {
-              slides?:
-                | T
-                | {
-                    image?: T;
-                    title?: T;
-                    subtitle?: T;
-                    ctaText?: T;
-                    ctaLink?: T;
-                    id?: T;
-                  };
-              autoplay?: T;
-              interval?: T;
-              height?: T;
-              id?: T;
-              blockName?: T;
-            };
         column?:
           | T
           | {
@@ -1368,6 +1242,180 @@ export interface PagesSelect<T extends boolean = true> {
                     image?: T;
                     id?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        testimonials?:
+          | T
+          | {
+              testimonials?:
+                | T
+                | {
+                    author?: T;
+                    role?: T;
+                    quote?: T;
+                    rating?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        faq?:
+          | T
+          | {
+              questions?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              headline?: T;
+              subheadline?: T;
+              buttonText?: T;
+              buttonAction?: T;
+              buttonLink?: T;
+              backgroundColor?: T;
+              id?: T;
+              blockName?: T;
+            };
+        portfolioGrid?:
+          | T
+          | {
+              badge?: T;
+              headline?: T;
+              description?: T;
+              categories?:
+                | T
+                | {
+                    label?: T;
+                    value?: T;
+                    id?: T;
+                  };
+              projects?:
+                | T
+                | {
+                    title?: T;
+                    category?: T;
+                    location?: T;
+                    description?: T;
+                    image?: T;
+                    badgeText?: T;
+                    status?: T;
+                    detailTitle?: T;
+                    detailDescription?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        missionVision?:
+          | T
+          | {
+              badge?: T;
+              headline?: T;
+              subheadline?: T;
+              vision?:
+                | T
+                | {
+                    label?: T;
+                    title?: T;
+                    text?: T;
+                    footerLeft?: T;
+                    footerRight?: T;
+                  };
+              mision?:
+                | T
+                | {
+                    label?: T;
+                    title?: T;
+                    text?: T;
+                    footerLeft?: T;
+                    footerRight?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        orgChart?:
+          | T
+          | {
+              badge?: T;
+              headline?: T;
+              subheadline?: T;
+              topNode?:
+                | T
+                | {
+                    label?: T;
+                    title?: T;
+                    subtitle?: T;
+                  };
+              adminNodes?:
+                | T
+                | {
+                    icon?: T;
+                    title?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              operationalNodes?:
+                | T
+                | {
+                    icon?: T;
+                    title?: T;
+                    description?: T;
+                    color?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        clientLogos?:
+          | T
+          | {
+              badge?: T;
+              headline?: T;
+              subheadline?: T;
+              clients?:
+                | T
+                | {
+                    name?: T;
+                    description?: T;
+                    icon?: T;
+                    logo?: T;
+                    id?: T;
+                  };
+              additionalClientsText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        legalInfo?:
+          | T
+          | {
+              badge?: T;
+              headline?: T;
+              description?: T;
+              checklist?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              legalFields?:
+                | T
+                | {
+                    label?: T;
+                    value?: T;
+                    highlight?: T;
+                    subtext?: T;
+                    id?: T;
+                  };
+              addressText?: T;
               id?: T;
               blockName?: T;
             };

@@ -156,43 +156,12 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
         ],
       },
       {
-        blockType: 'projects',
-        badge: 'Proyectos Recientes',
-        headline: 'Transformando Casas y Obras en Hogares',
-        projects: [
-          {
-            image: image1.id,
-            category: 'Residencial',
-            categoryColor: 'green',
-            title: 'Residencia La Castellana',
-            description:
-              'Remodelación completa de interiores, iluminación automatizada y acabados de lujo.',
-            location: 'Caracas',
-            status: 'Completado',
-          },
-          {
-            image: heroImage.id,
-            category: 'Comercial',
-            categoryColor: 'navy',
-            title: 'Oficinas Torre Financiera',
-            description:
-              'Adecuación estructural, tabiquería de drywall y sistemas integrados.',
-            location: 'Valencia',
-            status: 'Completado',
-          },
-          {
-            image: image3.id,
-            category: 'Remodelación',
-            categoryColor: 'yellow',
-            title: 'Quinta San Francisco',
-            description:
-              'Ampliación de terraza, piscina y reforzamiento de fundaciones.',
-            location: 'Maracay',
-            status: 'Completado',
-          },
-        ],
-        ctaText: 'Solicitar Presupuesto para Mi Proyecto',
-        ctaAction: 'modal',
+        blockType: 'column',
+        badge: 'Proyectos Destacados',
+        headline: 'Proyectos Recientes',
+        // projects se moverá a su propia página
+        // columnCount define cuántas columnas mostrar
+        columnCount: '3',
       },
       {
         blockType: 'testimonials',
