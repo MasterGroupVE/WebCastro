@@ -1926,6 +1926,7 @@ export interface Footer {
     instagram?: string | null;
     linkedin?: string | null;
     whatsapp?: string | null;
+    showText?: boolean | null;
   };
   column2Title?: string | null;
   companyLinks?:
@@ -2013,6 +2014,7 @@ export interface FooterSelect<T extends boolean = true> {
         instagram?: T;
         linkedin?: T;
         whatsapp?: T;
+        showText?: T;
       };
   column2Title?: T;
   companyLinks?:

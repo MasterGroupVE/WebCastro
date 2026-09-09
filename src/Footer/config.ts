@@ -36,37 +36,43 @@ export const Footer: GlobalConfig = {
               defaultValue:
                 'Soluciones integrales de ingeniería civil, geotecnia, obras viales, pantallas atirantadas, obras hidráulicas y sector petrolero. Construyendo con bases sólidas y garantía técnica.',
             },
-            {
-              name: 'socialLinks',
-              type: 'group',
-              label: 'Redes Sociales',
-              fields: [
-                {
-                  name: 'facebook',
-                  type: 'text',
-                  label: 'Enlace Facebook',
-                  defaultValue: '#',
-                },
-                {
-                  name: 'instagram',
-                  type: 'text',
-                  label: 'Enlace Instagram',
-                  defaultValue: '#',
-                },
-                {
-                  name: 'linkedin',
-                  type: 'text',
-                  label: 'Enlace LinkedIn',
-                  defaultValue: '#',
-                },
-                {
-                  name: 'whatsapp',
-                  type: 'text',
-                  label: 'Enlace WhatsApp',
-                  defaultValue: 'https://wa.me/584129643616',
-                },
-              ],
-            },
+{
+            name: 'socialLinks',
+            type: 'group',
+            label: 'Redes Sociales',
+            fields: [
+              {
+                name: 'facebook',
+                type: 'text',
+                label: 'Enlace Facebook',
+                defaultValue: '#',
+              },
+              {
+                name: 'instagram',
+                type: 'text',
+                label: 'Enlace Instagram',
+                defaultValue: '#',
+              },
+              {
+                name: 'linkedin',
+                type: 'text',
+                label: 'Enlace LinkedIn',
+                defaultValue: '#',
+              },
+              {
+                name: 'whatsapp',
+                type: 'text',
+                label: 'Enlace WhatsApp',
+                defaultValue: 'https://wa.me/584129643616',
+              },
+              {
+                name: 'showText',
+                type: 'checkbox',
+                label: 'Mostrar texto junto a íconos',
+                defaultValue: true,
+              },
+            ],
+          },
           ],
         },
         {

@@ -25,6 +25,7 @@ export interface CastroFooterProps {
       instagram?: string | null
       linkedin?: string | null
       whatsapp?: string | null
+      showText?: boolean | null
     } | null
     column2Title?: string | null
     companyLinks?: Array<{ label: string; href: string }> | null
@@ -127,6 +128,9 @@ export function CastroFooter({ data }: CastroFooterProps) {
                   aria-label="Facebook"
                 >
                   <i className="fa-brands fa-facebook-f"></i>
+                  {data?.socialLinks?.showText && (
+                    <span className="text-xs font-bold text-white ms-2">Facebook</span>
+                  )}
                 </a>
               )}
               {instagram && (
@@ -136,6 +140,9 @@ export function CastroFooter({ data }: CastroFooterProps) {
                   aria-label="Instagram"
                 >
                   <i className="fa-brands fa-instagram"></i>
+                  {data?.socialLinks?.showText && (
+                    <span className="text-xs font-bold text-white ms-2">Instagram</span>
+                  )}
                 </a>
               )}
               {linkedin && (
@@ -145,6 +152,9 @@ export function CastroFooter({ data }: CastroFooterProps) {
                   aria-label="LinkedIn"
                 >
                   <i className="fa-brands fa-linkedin-in"></i>
+                  {data?.socialLinks?.showText && (
+                    <span className="text-xs font-bold text-white ms-2">LinkedIn</span>
+                  )}
                 </a>
               )}
               {whatsapp && (
@@ -154,6 +164,9 @@ export function CastroFooter({ data }: CastroFooterProps) {
                   aria-label="WhatsApp"
                 >
                   <i className="fa-brands fa-whatsapp"></i>
+                  {data?.socialLinks?.showText && (
+                    <span className="text-xs font-bold text-white ms-2">WhatsApp</span>
+                  )}
                 </a>
               )}
             </div>
