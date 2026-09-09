@@ -1,23 +1,12 @@
-import { withPayload } from '@payloadcms/next/withPayload'
 import type { NextConfig } from 'next'
-import path from 'path'
-import { fileURLToPath } from 'url'
-
-const __filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(__filename)
-import { redirects } from './redirects'
-
-const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
+import withPayload from '@payloadcms/next/withPayload'
 
 const nextConfig: NextConfig = {
-  // Temporarily required on Windows until Next.js fixes Turbopack Sass resolution.
-  // See: https://github.com/vercel/next.js/issues/86431
   sassOptions: {
     loadPaths: ['./node_modules/@payloadcms/ui/dist/scss/'],
   },
   images: {
+    // Patrones locales - Payload CMS usa /api/media/file/... para servir imágenes
     localPatterns: [
       {
         pathname: '/api/media/file/**',
@@ -26,16 +15,20 @@ const nextConfig: NextConfig = {
         pathname: '/logo-de-los-Castro.png',
       },
     ],
+    // Calidad de las imágenes
     qualities: [100],
+    // Patrones remotos - solo hostname string (sin arrays)
     remotePatterns: [
-      ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
-        const url = new URL(item)
-
-        return {
-          hostname: url.hostname,
-          protocol: url.protocol.replace(':', '') as 'http' | 'https',
-        }
-      }),
+      // Para localhost
+      {
+        protocol: 'https',
+        hostname: 'localhost',
+      },
+      // Para imágenes en Aiven/Payload cloud
+      {
+        protocol: 'https',
+        hostname: 'pg-contruc-los-castros-vmontoya-dbe7.d.aivencloud.com',
+      },
     ],
   },
   webpack: (webpackConfig) => {
@@ -48,7 +41,6 @@ const nextConfig: NextConfig = {
     return webpackConfig
   },
   reactStrictMode: true,
-  redirects,
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
