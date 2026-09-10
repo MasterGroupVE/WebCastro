@@ -59,7 +59,7 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
-      max: 20,
+      max: 10,
     },
   }),
   collections: [Pages, Posts, Media, Categories, Users],
