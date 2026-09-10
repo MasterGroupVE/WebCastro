@@ -11,12 +11,20 @@ import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
-import { plugins } from './plugins'
+import { plugins as defaultPlugins } from './plugins' // Renombrado para no sobrescribir el arreglo
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+// Captura cualquier variable de conexión a base de datos de Vercel o local
+const connectionString =
+  process.env.POSTGRES_URL ||
+  process.env.POSTGRES_URL_NON_POOLING ||
+  process.env.DATABASE_URL ||
+  ''
 
 export default buildConfig({
   admin: {
@@ -54,19 +62,35 @@ export default buildConfig({
       titleSuffix: ' - Construcciones Los Castros',
     },
   },
-  // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
+  
+  // 1. Configuración adaptada para Vercel Postgres / Neon
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || '',
+      connectionString,
       max: 10,
+      ssl: process.env.POSTGRES_URL ? { rejectUnauthorized: false } : undefined,
     },
   }),
+
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
-  plugins,
-  secret: process.env.PAYLOAD_SECRET,
+
+  // 2. Conserva tus plugins existentes e integra vercelBlobStorage
+  plugins: [
+    ...(defaultPlugins || []),
+    vercelBlobStorage({
+      enabled: true,
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
+  ],
+
+  // 3. Clave secreta fija
+  secret: process.env.PAYLOAD_SECRET || '',
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
@@ -74,15 +98,11 @@ export default buildConfig({
   jobs: {
     access: {
       run: ({ req }: { req: PayloadRequest }): boolean => {
-        // Allow logged in users to execute this endpoint (default)
         if (req.user) return true
 
         const secret = process.env.CRON_SECRET
         if (!secret) return false
 
-        // If there is no logged in user, then check
-        // for the Vercel Cron secret to be present as an
-        // Authorization header:
         const authHeader = req.headers.get('authorization')
         return authHeader === `Bearer ${secret}`
       },
