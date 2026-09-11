@@ -8,11 +8,17 @@ import { ColumnBlock } from './blocks/Column/config'
 import { TestimonialsBlock } from './blocks/Testimonials'
 import { FaqBlock } from './blocks/Faq'
 import { CtaBlock } from './blocks/Cta/config'
+import { CtaBannerBlock } from './blocks/CtaBanner'
 import { PortfolioGridBlock } from './blocks/PortfolioGrid/config'
 import { MissionVisionBlock } from './blocks/MissionVision/config'
 import { OrgChartBlock } from './blocks/OrgChart/config'
 import { ClientLogosBlock } from './blocks/ClientLogos/config'
 import { LegalInfoBlock } from './blocks/LegalInfo/config'
+import { ContactBlock } from './blocks/Contact'
+import { FeaturesBlock } from './blocks/Features'
+import { PostsGridBlock } from './blocks/PostsGrid'
+import { ProjectsBlock } from './blocks/Projects'
+import { SliderBlock } from './blocks/Slider'
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -52,11 +58,17 @@ const Pages: CollectionConfig = {
         TestimonialsBlock,
         FaqBlock,
         CtaBlock,
+        CtaBannerBlock,
         PortfolioGridBlock,
         MissionVisionBlock,
         OrgChartBlock,
         ClientLogosBlock,
         LegalInfoBlock,
+        ContactBlock,
+        FeaturesBlock,
+        PostsGridBlock,
+        ProjectsBlock,
+        SliderBlock,
       ],
     },
   ],

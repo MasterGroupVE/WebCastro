@@ -29,6 +29,16 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'pg-contruc-los-castros-vmontoya-dbe7.d.aivencloud.com',
       },
+      // Para Vercel Blob storage
+      {
+        protocol: 'https',
+        hostname: '**.public.blob.vercel-storage.com',
+      },
+      // Para imágenes externas de Unsplash
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
     ],
   },
   webpack: (webpackConfig) => {

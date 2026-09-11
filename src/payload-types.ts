@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    proyectos: Proyecto;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -94,6 +95,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    proyectos: ProyectosSelect<false> | ProyectosSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -328,6 +330,17 @@ export interface Page {
             blockType: 'cta';
           }
         | {
+            headline: string;
+            text?: string | null;
+            buttonText?: string | null;
+            buttonAction?: ('link' | 'modal') | null;
+            buttonLink?: string | null;
+            backgroundColor?: ('yellow' | 'navy' | 'green') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ctaBanner';
+          }
+        | {
             badge?: string | null;
             headline: string;
             description?: string | null;
@@ -449,6 +462,107 @@ export interface Page {
             id?: string | null;
             blockName?: string | null;
             blockType: 'legalInfo';
+          }
+        | {
+            headline: string;
+            subheadline?: string | null;
+            contactItems: {
+              /**
+               * Ej: call, mail, location_on, schedule, chat (WhatsApp), language (web)
+               */
+              icon?: string | null;
+              label: string;
+              value: string;
+              /**
+               * Ej: tel:+584121234567, mailto:info@empresa.com, https://wa.me/584121234567
+               */
+              link?: string | null;
+              id?: string | null;
+            }[];
+            /**
+             * Pega la URL src del iframe de Google Maps (Compartir → Insertar un mapa → copiar solo el src)
+             */
+            mapEmbedUrl?: string | null;
+            backgroundColor?: ('white' | 'gray' | 'navy') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contact';
+          }
+        | {
+            headline: string;
+            subheadline?: string | null;
+            items: {
+              /**
+               * Ej: architecture, construction, engineering, verified, handshake
+               */
+              icon?: string | null;
+              title: string;
+              description?: string | null;
+              id?: string | null;
+            }[];
+            backgroundColor?: ('white' | 'gray' | 'navy') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'features';
+          }
+        | {
+            badge?: string | null;
+            headline: string;
+            subheadline?: string | null;
+            customPosts?:
+              | {
+                  title: string;
+                  category?: string | null;
+                  description: string;
+                  image?: (number | null) | Media;
+                  link?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'postsGrid';
+          }
+        | {
+            badge?: string | null;
+            headline: string;
+            subheadline?: string | null;
+            projects: {
+              title: string;
+              category?: string | null;
+              categoryColor?: ('green' | 'navy' | 'yellow') | null;
+              description?: string | null;
+              location?: string | null;
+              status?: string | null;
+              image?: (number | null) | Media;
+              link?: string | null;
+              id?: string | null;
+            }[];
+            ctaText?: string | null;
+            ctaAction?: ('modal' | 'link') | null;
+            ctaLink?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'projects';
+          }
+        | {
+            slides: {
+              image: number | Media;
+              title?: string | null;
+              subtitle?: string | null;
+              ctaText?: string | null;
+              ctaLink?: string | null;
+              id?: string | null;
+            }[];
+            autoplay?: boolean | null;
+            /**
+             * Milisegundos entre diapositivas (mínimo 2000)
+             */
+            interval?: number | null;
+            height?: ('full' | 'large' | 'medium') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'slider';
           }
       )[]
     | null;
@@ -677,6 +791,22 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "proyectos".
+ */
+export interface Proyecto {
+  id: number;
+  titulo: string;
+  categoria: 'vialidad' | 'petroleo' | 'pilotaje' | 'patrimonial' | 'ambiental';
+  imagen: number | Media;
+  descripcion?: string | null;
+  tecnologia?: string | null;
+  cliente?: string | null;
+  ano?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1054,6 +1184,10 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
+        relationTo: 'proyectos';
+        value: number | Proyecto;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -1285,6 +1419,18 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        ctaBanner?:
+          | T
+          | {
+              headline?: T;
+              text?: T;
+              buttonText?: T;
+              buttonAction?: T;
+              buttonLink?: T;
+              backgroundColor?: T;
+              id?: T;
+              blockName?: T;
+            };
         portfolioGrid?:
           | T
           | {
@@ -1416,6 +1562,105 @@ export interface PagesSelect<T extends boolean = true> {
                     id?: T;
                   };
               addressText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        contact?:
+          | T
+          | {
+              headline?: T;
+              subheadline?: T;
+              contactItems?:
+                | T
+                | {
+                    icon?: T;
+                    label?: T;
+                    value?: T;
+                    link?: T;
+                    id?: T;
+                  };
+              mapEmbedUrl?: T;
+              backgroundColor?: T;
+              id?: T;
+              blockName?: T;
+            };
+        features?:
+          | T
+          | {
+              headline?: T;
+              subheadline?: T;
+              items?:
+                | T
+                | {
+                    icon?: T;
+                    title?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              backgroundColor?: T;
+              id?: T;
+              blockName?: T;
+            };
+        postsGrid?:
+          | T
+          | {
+              badge?: T;
+              headline?: T;
+              subheadline?: T;
+              customPosts?:
+                | T
+                | {
+                    title?: T;
+                    category?: T;
+                    description?: T;
+                    image?: T;
+                    link?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        projects?:
+          | T
+          | {
+              badge?: T;
+              headline?: T;
+              subheadline?: T;
+              projects?:
+                | T
+                | {
+                    title?: T;
+                    category?: T;
+                    categoryColor?: T;
+                    description?: T;
+                    location?: T;
+                    status?: T;
+                    image?: T;
+                    link?: T;
+                    id?: T;
+                  };
+              ctaText?: T;
+              ctaAction?: T;
+              ctaLink?: T;
+              id?: T;
+              blockName?: T;
+            };
+        slider?:
+          | T
+          | {
+              slides?:
+                | T
+                | {
+                    image?: T;
+                    title?: T;
+                    subtitle?: T;
+                    ctaText?: T;
+                    ctaLink?: T;
+                    id?: T;
+                  };
+              autoplay?: T;
+              interval?: T;
+              height?: T;
               id?: T;
               blockName?: T;
             };
@@ -1591,6 +1836,21 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "proyectos_select".
+ */
+export interface ProyectosSelect<T extends boolean = true> {
+  titulo?: T;
+  categoria?: T;
+  imagen?: T;
+  descripcion?: T;
+  tecnologia?: T;
+  cliente?: T;
+  ano?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

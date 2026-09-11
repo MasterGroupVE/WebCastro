@@ -40,7 +40,7 @@ export const PortfolioGridBlockComponent = ({ block }: PortfolioGridBlockProps) 
       : projects.filter((p) => p.category === activeFilter)
 
   return (
-    <section className="py-20 bg-slate-100/70 border-b border-slate-200">
+    <section id="proyectos" className="py-20 bg-slate-100/70 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>

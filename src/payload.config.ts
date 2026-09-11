@@ -9,15 +9,19 @@ import { Media } from './collections/Media'
 import Pages from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
+import { Proyectos } from './collections/Proyectos'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins as defaultPlugins } from './plugins' // Renombrado para no sobrescribir el arreglo
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import dotenv from 'dotenv'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+dotenv.config({ path: path.resolve(dirname, '../.env') })
 
 // Captura cualquier variable de conexión a base de datos de Vercel o local
 const connectionString =
@@ -73,7 +77,7 @@ export default buildConfig({
     },
   }),
 
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Posts, Media, Categories, Users, Proyectos],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
 

@@ -31,6 +31,7 @@ const blockComponents: Record<string, React.FC<any>> = {
   slider: SliderBlockComponent,
   testimonials: TestimonialsBlockComponent,
   ctaBanner: CtaBannerBlockComponent,
+  cta: CtaBannerBlockComponent,
   features: FeaturesBlockComponent,
   faq: FaqBlockComponent,
   postsGrid: PostsGridBlockComponent,
