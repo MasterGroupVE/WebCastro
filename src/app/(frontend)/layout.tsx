@@ -10,6 +10,7 @@ import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { QuoteModal } from '@/components/landing/QuoteModal'
+import { SmoothScrollHandler } from '@/components/SmoothScrollHandler'
 import { draftMode } from 'next/headers'
 
 import './globals.css'
@@ -32,6 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
+          <SmoothScrollHandler />
           <AdminBar
             adminBarProps={{
               preview: isEnabled,

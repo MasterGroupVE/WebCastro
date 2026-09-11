@@ -48,7 +48,7 @@ export const ContactBlockComponent = ({ block }: ContactBlockProps) => {
   const mutedColor = mutedColorClasses[backgroundColor]
 
   return (
-    <section className={cn('py-16 md:py-24 lg:py-32', bgClasses[backgroundColor])}>
+    <section id="contacto" className={cn('py-16 md:py-24 lg:py-32', bgClasses[backgroundColor])}>
       <div className="container">
         <div className="max-w-3xl mx-auto text-center mb-16">
           {subheadline && (

@@ -1,6 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { openQuoteModal } from '@/components/landing/QuoteModal'
 import { cn } from '@/utilities/ui'
 
@@ -57,6 +59,9 @@ const defaultNavLinks = [
 
 export function CastroHeader({ data }: CastroHeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
+  const pathname = usePathname()
 
   const showTopBar = data?.showTopBar !== false
   const address = data?.address || 'El Junquito, Km 23 / Caracas, Venezuela'
@@ -93,11 +98,82 @@ export function CastroHeader({ data }: CastroHeaderProps) {
   const mainCtaAction = data?.mainCtaAction || 'modal'
   const mainCtaLink = data?.mainCtaLink || '#'
 
+  // Scroll detection for compact sticky header
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Scroll spy to highlight active section on the home page
+  useEffect(() => {
+    if (pathname !== '/') {
+      setActiveSection('')
+      return
+    }
+
+    const sectionIds = navLinks
+      .map((l) => (l.href.includes('#') ? l.href.split('#')[1] : null))
+      .filter(Boolean) as string[]
+
+    if (!sectionIds.length) return
+
+    const handleScrollSpy = () => {
+      const scrollPosition = window.scrollY + 120
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const id = sectionIds[i]
+        const el = document.getElementById(id)
+        if (el) {
+          const top = el.offsetTop
+          if (scrollPosition >= top) {
+            setActiveSection(id)
+            return
+          }
+        }
+      }
+      setActiveSection(sectionIds[0] || '')
+    }
+
+    window.addEventListener('scroll', handleScrollSpy, { passive: true })
+    handleScrollSpy()
+    return () => window.removeEventListener('scroll', handleScrollSpy)
+  }, [pathname, navLinks])
+
+  // Handle smooth scroll on home page or cross-page navigation
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    setMobileOpen(false)
+
+    const isHash = href.includes('#')
+    if (!isHash) return
+
+    const [pathPart, hashPart] = href.split('#')
+    const isTargetHome = !pathPart || pathPart === '/'
+
+    if (pathname === '/' && isTargetHome && hashPart) {
+      e.preventDefault()
+      const targetElement = document.getElementById(hashPart)
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        window.history.pushState(null, '', `#${hashPart}`)
+        setActiveSection(hashPart)
+      }
+    }
+  }
+
   return (
-    <header className="font-sans">
-      {/* Top Bar */}
+    <header className="sticky top-0 z-50 w-full font-sans transition-all duration-300">
+      {/* Top Bar - smoothly hides on scroll to keep navbar compact */}
       {showTopBar && (
-        <div className="bg-castro-darknavy text-white text-xs py-2.5 px-4 border-b border-white/10 hidden sm:block">
+        <div
+          className={cn(
+            'bg-castro-darknavy text-white text-xs px-4 border-b border-white/10 hidden sm:block transition-all duration-300 overflow-hidden',
+            isScrolled ? 'max-h-0 py-0 opacity-0 border-b-0' : 'max-h-14 py-2.5 opacity-100',
+          )}
+        >
           <div className="max-w-7xl mx-auto flex justify-between items-center">
             <div className="flex items-center space-x-6 text-slate-300">
               {address && (
@@ -167,17 +243,40 @@ export function CastroHeader({ data }: CastroHeaderProps) {
         </div>
       )}
 
-      {/* Header / Navbar */}
-      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
+      {/* Main Navbar */}
+      <div
+        className={cn(
+          'bg-white/95 backdrop-blur-md border-b border-slate-100 transition-all duration-300',
+          isScrolled ? 'shadow-md py-0' : 'shadow-xs py-0',
+        )}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            <a href="#inicio" className="flex items-center gap-3 group">
+          <div
+            className={cn(
+              'flex justify-between items-center transition-all duration-300',
+              isScrolled ? 'h-16' : 'h-20',
+            )}
+          >
+            {/* Logo */}
+            <Link
+              href={pathname === '/' ? '#inicio' : '/'}
+              onClick={(e) => handleNavClick(e, '#inicio')}
+              className="flex items-center gap-3 group cursor-pointer"
+            >
               {logoUrl ? (
-                <div className="relative h-12 flex items-center justify-center">
+                <div
+                  className={cn(
+                    'relative flex items-center justify-center transition-all duration-300',
+                    isScrolled ? 'h-10' : 'h-12',
+                  )}
+                >
                   <img
                     src={logoUrl}
                     alt={companyName || 'Logo'}
-                    className="max-h-12 max-w-[160px] w-auto object-contain"
+                    className={cn(
+                      'max-w-[160px] w-auto object-contain transition-all duration-300',
+                      isScrolled ? 'max-h-10' : 'max-h-12',
+                    )}
                   />
                 </div>
               ) : (
@@ -197,23 +296,48 @@ export function CastroHeader({ data }: CastroHeaderProps) {
                   </span>
                 </div>
               )}
-            </a>
+            </Link>
 
-            <nav className="hidden md:flex items-center space-x-8 font-medium text-sm text-castro-textdark">
-              {navLinks.map((l, i) => (
-                <a
-                  key={l.href + i}
-                  href={l.href}
-                  className={cn(
-                    'hover:text-castro-green transition',
-                    i === 0 ? 'text-castro-green font-semibold' : '',
-                  )}
-                >
-                  {l.label}
-                </a>
-              ))}
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-7 font-medium text-sm text-castro-textdark">
+              {navLinks.map((l, i) => {
+                const isHash = l.href.includes('#')
+                const hashId = isHash ? l.href.split('#')[1] : ''
+                const targetHref = l.href.startsWith('#')
+                  ? pathname === '/'
+                    ? l.href
+                    : `/${l.href}`
+                  : l.href
+
+                const isActive =
+                  pathname === '/'
+                    ? activeSection
+                      ? activeSection === hashId
+                      : i === 0
+                    : pathname === l.href
+
+                return (
+                  <Link
+                    key={l.href + i}
+                    href={targetHref}
+                    onClick={(e) => handleNavClick(e, l.href)}
+                    className={cn(
+                      'transition-colors py-1 relative font-medium',
+                      isActive
+                        ? 'text-castro-green font-bold'
+                        : 'text-castro-textdark hover:text-castro-green',
+                    )}
+                  >
+                    {l.label}
+                    {isActive && (
+                      <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-castro-green rounded-full transition-all" />
+                    )}
+                  </Link>
+                )
+              })}
             </nav>
 
+            {/* Call Button & Main CTA */}
             <div className="hidden lg:flex items-center gap-3">
               {phoneButtonText && (
                 <a
@@ -248,6 +372,7 @@ export function CastroHeader({ data }: CastroHeaderProps) {
               )}
             </div>
 
+            {/* Mobile Hamburger Button */}
             <div className="md:hidden flex items-center">
               <button
                 type="button"
@@ -255,7 +380,7 @@ export function CastroHeader({ data }: CastroHeaderProps) {
                 className="p-2 rounded-md text-castro-navy hover:text-castro-green focus:outline-none"
                 aria-label="Menú"
               >
-                <i className="fa-solid fa-bars text-2xl"></i>
+                <i className={cn('fa-solid text-2xl', mobileOpen ? 'fa-xmark' : 'fa-bars')}></i>
               </button>
             </div>
           </div>
@@ -264,25 +389,42 @@ export function CastroHeader({ data }: CastroHeaderProps) {
         {/* Mobile Menu */}
         <div
           className={cn(
-            'md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3',
+            'md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-2 transition-all',
             mobileOpen ? 'block' : 'hidden',
           )}
         >
-          {navLinks.map((l, i) => (
-            <a
-              key={l.href + i}
-              href={l.href}
-              onClick={() => setMobileOpen(false)}
-              className={cn(
-                'block px-3 py-2 rounded-md',
-                i === 0
-                  ? 'text-castro-green font-semibold bg-emerald-50'
-                  : 'text-castro-textdark hover:bg-slate-50',
-              )}
-            >
-              {l.label}
-            </a>
-          ))}
+          {navLinks.map((l, i) => {
+            const isHash = l.href.includes('#')
+            const hashId = isHash ? l.href.split('#')[1] : ''
+            const targetHref = l.href.startsWith('#')
+              ? pathname === '/'
+                ? l.href
+                : `/${l.href}`
+              : l.href
+
+            const isActive =
+              pathname === '/'
+                ? activeSection
+                  ? activeSection === hashId
+                  : i === 0
+                : pathname === l.href
+
+            return (
+              <Link
+                key={l.href + i}
+                href={targetHref}
+                onClick={(e) => handleNavClick(e, l.href)}
+                className={cn(
+                  'block px-3 py-2 rounded-md font-medium transition',
+                  isActive
+                    ? 'text-castro-green font-bold bg-emerald-50'
+                    : 'text-castro-textdark hover:bg-slate-50',
+                )}
+              >
+                {l.label}
+              </Link>
+            )
+          })}
           {mainCtaText && (
             <div className="pt-2">
               {mainCtaAction === 'modal' ? (
