@@ -46,6 +46,9 @@ type PageWithLayout = {
   layout?: any[] | null
 } & RequiredDataFromCollectionSlug<'pages'>
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function Page({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = 'home' } = await paramsPromise
@@ -98,7 +101,7 @@ const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
     draft,
     limit: 1,
     pagination: false,
-    overrideAccess: draft,
+    overrideAccess: true,
     where: {
       slug: {
         equals: slug,

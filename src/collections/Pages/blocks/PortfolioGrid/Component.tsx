@@ -89,18 +89,26 @@ export const PortfolioGridBlockComponent = ({ block }: PortfolioGridBlockProps) 
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/80 flex flex-col transition-all duration-300 hover:-translate-y-1"
-            >
-              {project.image && (
-                <div className="relative aspect-video overflow-hidden bg-slate-800">
-                  <img
-                    src={project.image.url}
-                    alt={project.image.alt || project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
+          {filteredProjects.map((project, index) => {
+            const imgUrl =
+              typeof project.image === 'object' && project.image?.url
+                ? project.image.url
+                : typeof project.image === 'string'
+                ? project.image
+                : null
+
+            return (
+              <div
+                key={index}
+                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/80 flex flex-col transition-all duration-300 hover:-translate-y-1"
+              >
+                {imgUrl && (
+                  <div className="relative aspect-video overflow-hidden bg-slate-800">
+                    <img
+                      src={imgUrl}
+                      alt={(typeof project.image === 'object' && project.image?.alt) || project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
                   {project.badgeText && (
                     <span className="absolute top-3 left-3 bg-amber-500 text-slate-950 font-display font-bold text-[10px] uppercase px-2.5 py-1 rounded-md tracking-wider">
                       {project.badgeText}
@@ -135,7 +143,8 @@ export const PortfolioGridBlockComponent = ({ block }: PortfolioGridBlockProps) 
                 )}
               </div>
             </div>
-          ))}
+          )
+        })}
         </div>
       </div>
     </section>

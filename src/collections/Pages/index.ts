@@ -19,15 +19,35 @@ import { FeaturesBlock } from './blocks/Features'
 import { PostsGridBlock } from './blocks/PostsGrid'
 import { ProjectsBlock } from './blocks/Projects'
 import { SliderBlock } from './blocks/Slider'
+import { generatePreviewPath } from '../../utilities/generatePreviewPath'
+import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 
 const Pages: CollectionConfig = {
   slug: 'pages',
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'updatedAt'],
+    livePreview: {
+      url: ({ data, req }) =>
+        generatePreviewPath({
+          slug: data?.slug,
+          collection: 'pages',
+          req,
+        }),
+    },
+    preview: (data, { req }) =>
+      generatePreviewPath({
+        slug: data?.slug as string,
+        collection: 'pages',
+        req,
+      }),
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [revalidatePage],
+    afterDelete: [revalidateDelete],
   },
   fields: [
     {

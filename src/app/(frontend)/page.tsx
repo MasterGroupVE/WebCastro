@@ -10,6 +10,9 @@ import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './[slug]/page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function Page() {
   const { isEnabled: draft } = await draftMode()
   const page = await queryHomePage(draft)
@@ -41,7 +44,7 @@ const queryHomePage = cache(async (draft: boolean) => {
       draft,
       limit: 1,
       pagination: false,
-      overrideAccess: draft,
+      overrideAccess: true,
       where: {
         slug: {
           equals: 'home',
