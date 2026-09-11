@@ -98,10 +98,17 @@ export function CastroHeader({ data }: CastroHeaderProps) {
   const mainCtaAction = data?.mainCtaAction || 'modal'
   const mainCtaLink = data?.mainCtaLink || '#'
 
-  // Scroll detection for compact sticky header
+  // Scroll detection for navbar elevation (shadow) without layout shift
   useEffect(() => {
+    let ticking = false
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 15)
+          ticking = false
+        })
+        ticking = true
+      }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -122,20 +129,28 @@ export function CastroHeader({ data }: CastroHeaderProps) {
 
     if (!sectionIds.length) return
 
+    let ticking = false
     const handleScrollSpy = () => {
-      const scrollPosition = window.scrollY + 120
-      for (let i = sectionIds.length - 1; i >= 0; i--) {
-        const id = sectionIds[i]
-        const el = document.getElementById(id)
-        if (el) {
-          const top = el.offsetTop
-          if (scrollPosition >= top) {
-            setActiveSection(id)
-            return
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollPosition = window.scrollY + 140
+          for (let i = sectionIds.length - 1; i >= 0; i--) {
+            const id = sectionIds[i]
+            const el = document.getElementById(id)
+            if (el) {
+              const top = el.offsetTop
+              if (scrollPosition >= top) {
+                setActiveSection(id)
+                ticking = false
+                return
+              }
+            }
           }
-        }
+          setActiveSection(sectionIds[0] || '')
+          ticking = false
+        })
+        ticking = true
       }
-      setActiveSection(sectionIds[0] || '')
     }
 
     window.addEventListener('scroll', handleScrollSpy, { passive: true })
@@ -165,15 +180,10 @@ export function CastroHeader({ data }: CastroHeaderProps) {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full font-sans transition-all duration-300">
-      {/* Top Bar - smoothly hides on scroll to keep navbar compact */}
+    <>
+      {/* Top Bar - In normal document flow, scrolls away naturally with zero jitter */}
       {showTopBar && (
-        <div
-          className={cn(
-            'bg-castro-darknavy text-white text-xs px-4 border-b border-white/10 hidden sm:block transition-all duration-300 overflow-hidden',
-            isScrolled ? 'max-h-0 py-0 opacity-0 border-b-0' : 'max-h-14 py-2.5 opacity-100',
-          )}
-        >
+        <div className="bg-castro-darknavy text-white text-xs py-2.5 px-4 border-b border-white/10 hidden sm:block">
           <div className="max-w-7xl mx-auto flex justify-between items-center">
             <div className="flex items-center space-x-6 text-slate-300">
               {address && (
@@ -243,20 +253,15 @@ export function CastroHeader({ data }: CastroHeaderProps) {
         </div>
       )}
 
-      {/* Main Navbar */}
-      <div
+      {/* Main Sticky Navbar - Sticks at top-0 across the whole page with zero bounce */}
+      <header
         className={cn(
-          'bg-white/95 backdrop-blur-md border-b border-slate-100 transition-all duration-300',
-          isScrolled ? 'shadow-md py-0' : 'shadow-xs py-0',
+          'sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b font-sans transition-all duration-200',
+          isScrolled ? 'shadow-md border-slate-200/90' : 'shadow-xs border-slate-100',
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div
-            className={cn(
-              'flex justify-between items-center transition-all duration-300',
-              isScrolled ? 'h-16' : 'h-20',
-            )}
-          >
+          <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <Link
               href={pathname === '/' ? '#inicio' : '/'}
@@ -264,19 +269,11 @@ export function CastroHeader({ data }: CastroHeaderProps) {
               className="flex items-center gap-3 group cursor-pointer"
             >
               {logoUrl ? (
-                <div
-                  className={cn(
-                    'relative flex items-center justify-center transition-all duration-300',
-                    isScrolled ? 'h-10' : 'h-12',
-                  )}
-                >
+                <div className="relative h-12 flex items-center justify-center">
                   <img
                     src={logoUrl}
                     alt={companyName || 'Logo'}
-                    className={cn(
-                      'max-w-[160px] w-auto object-contain transition-all duration-300',
-                      isScrolled ? 'max-h-10' : 'max-h-12',
-                    )}
+                    className="max-h-12 max-w-[160px] w-auto object-contain"
                   />
                 </div>
               ) : (
@@ -450,7 +447,7 @@ export function CastroHeader({ data }: CastroHeaderProps) {
             </div>
           )}
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   )
 }
