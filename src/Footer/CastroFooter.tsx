@@ -18,6 +18,7 @@ function DefaultFooterLogo() {
 export interface CastroFooterProps {
   data?: {
     logo?: any
+    showTextBrand?: boolean | null
     companyName?: string | null
     description?: string | null
     socialLinks?: {
@@ -71,6 +72,7 @@ export function CastroFooter({ data }: CastroFooterProps) {
       ? data.logo
       : null
 
+  const showTextBrand = data?.showTextBrand !== false
   const companyName = data?.companyName || 'Construcciones Los Castros C.A.'
   const description =
     data?.description ||
@@ -115,7 +117,9 @@ export function CastroFooter({ data }: CastroFooterProps) {
               ) : (
                 <DefaultFooterLogo />
               )}
-              <span className="text-xl font-extrabold text-white">{companyName}</span>
+              {showTextBrand && (
+                <span className="text-xl font-extrabold text-white">{companyName}</span>
+              )}
             </a>
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
               {description}

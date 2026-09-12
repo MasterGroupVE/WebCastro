@@ -2179,6 +2179,7 @@ export interface Footer {
    * Si no subes una imagen, se mostrará el isotipo oficial blanco de Los Castros.
    */
   logo?: (number | null) | Media;
+  showTextBrand?: boolean | null;
   companyName?: string | null;
   description?: string | null;
   socialLinks?: {
@@ -2265,6 +2266,7 @@ export interface HeaderSelect<T extends boolean = true> {
  */
 export interface FooterSelect<T extends boolean = true> {
   logo?: T;
+  showTextBrand?: T;
   companyName?: T;
   description?: T;
   socialLinks?:

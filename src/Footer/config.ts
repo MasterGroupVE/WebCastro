@@ -24,10 +24,19 @@ export const Footer: GlobalConfig = {
               },
             },
             {
+              name: 'showTextBrand',
+              type: 'checkbox',
+              label: 'Mostrar texto de la empresa junto al logo',
+              defaultValue: true,
+            },
+            {
               name: 'companyName',
               type: 'text',
               label: 'Nombre de la empresa',
               defaultValue: 'Construcciones Los Castros C.A.',
+              admin: {
+                condition: (_data, siblingData) => Boolean(siblingData?.showTextBrand),
+              },
             },
             {
               name: 'description',
