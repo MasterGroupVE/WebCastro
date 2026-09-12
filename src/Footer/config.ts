@@ -35,7 +35,7 @@ export const Footer: GlobalConfig = {
               label: 'Nombre de la empresa',
               defaultValue: 'Construcciones Los Castros C.A.',
               admin: {
-                condition: (_data, siblingData) => Boolean(siblingData?.showTextBrand),
+                condition: (_data, siblingData) => siblingData?.showTextBrand !== false,
               },
             },
             {
