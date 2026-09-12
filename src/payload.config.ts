@@ -76,7 +76,7 @@ export default buildConfig({
       ssl: process.env.POSTGRES_URL ? { rejectUnauthorized: false } : undefined,
     },
     afterSchemaInit: [
-      async ({ adapter }) => {
+      async ({ adapter, schema }) => {
         try {
           if (adapter.drizzle) {
             await adapter.drizzle.execute(
@@ -86,6 +86,7 @@ export default buildConfig({
         } catch (e) {
           console.error('Error adding show_text_brand column', e)
         }
+        return schema
       },
     ],
   }),
