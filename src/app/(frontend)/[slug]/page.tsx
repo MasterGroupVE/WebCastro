@@ -71,7 +71,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   const layout = page.layout || []
 
   return (
-    <article className="pt-16 pb-24">
+    <article className="py-10 min-h-screen">
       <PageClient />
       <PayloadRedirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
