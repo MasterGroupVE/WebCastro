@@ -75,7 +75,6 @@ export default buildConfig({
       max: 10,
       ssl: process.env.POSTGRES_URL ? { rejectUnauthorized: false } : undefined,
     },
-    push: true,
   }),
 
   collections: [Pages, Posts, Media, Categories, Users, Proyectos],
