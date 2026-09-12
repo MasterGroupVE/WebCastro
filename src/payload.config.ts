@@ -78,8 +78,9 @@ export default buildConfig({
     afterSchemaInit: [
       async ({ adapter, schema }) => {
         try {
-          if (adapter.drizzle) {
-            await adapter.drizzle.execute(
+          const dbAdapter = adapter as any
+          if (dbAdapter.drizzle) {
+            await dbAdapter.drizzle.execute(
               sql`ALTER TABLE "footer" ADD COLUMN IF NOT EXISTS "show_text_brand" boolean DEFAULT true;`
             )
           }
