@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { cn } from '@/utilities/ui'
 
 const colorMap: Record<string, string> = {
@@ -46,8 +46,106 @@ interface OrgChartBlockProps {
   }
 }
 
+// Información extraída del dossier
+const dossierData: Record<string, React.ReactNode> = {
+  'Gerencia de Geociencias': (
+    <div className="text-slate-600 text-sm space-y-3 text-left">
+      <p>A través de la Gerencia de Geociencias de la empresa se desarrollan y ofrecen, a nivel nacional, servicios de:</p>
+      <p>Exploración, estudios, asesorías y consultorías ingenieriles en las áreas de la geología, geofísica, geotecnia, geodesia y topografía, hidrología, hidrogeología y cualquier otra rama relacionada con las ciencias de la Tierra. De manera más específica nos encargamos de:</p>
+      <ul className="list-disc pl-5 space-y-1 text-slate-700">
+        <li>Estudios de suelo y perforaciones geotécnicas para obras civiles.</li>
+        <li>Caracterización de suelos en sistemas nacionales e internacionales.</li>
+        <li>Laboratorio para caracterización de suelos y rocas.</li>
+        <li>Cálculos de fundaciones superficiales y profundas, muros de contención, pilas, entre otras obras civiles.</li>
+        <li>Cálculos de estabilidad de taludes y caracterización de macizos rocosos.</li>
+        <li>Control geológico de frente de excavación en túneles y trincheras.</li>
+        <li>Perforación de pozos de agua y modelado de acuíferos subterráneos.</li>
+        <li>Equipamiento de pozos de agua.</li>
+        <li>Prospección geofísica.</li>
+        <li>Levantamientos topográficos especializados en el área de la construcción, vialidad, minería y otros, así como replanteos de control planialtimétrico.</li>
+        <li>Puesta de puntos de control GPS doble frecuencia para la construcción de redes geodésicas locales y regionales.</li>
+        <li>Cálculos de volumen de tierras, corte y relleno.</li>
+        <li>Catastro rural y urbano, así como división parcelaria.</li>
+        <li>Teledetección, Diseño y manejo de Sistemas de Información Geográfica (SIG).</li>
+        <li>Control de Calidad de Obras Civiles y Movimientos de Tierra.</li>
+      </ul>
+    </div>
+  ),
+  'Gerencia de Proyectos': (
+    <div className="text-slate-600 text-sm space-y-3 text-left">
+      <p>Este departamento se encarga de desarrollar proyectos en las áreas de geociencias e ingeniería. Sus parámetros de investigación están proyectados a:</p>
+      <ul className="list-disc pl-5 space-y-1 text-slate-700">
+        <li>Diseños Estructurales.</li>
+        <li>Diseños Arquitectónicos.</li>
+        <li>Planeación Urbanística.</li>
+        <li>Proyectos y Diseños de asfalto (rígido y flexible)</li>
+        <li>Diseño de túneles.</li>
+        <li>Diseño de Puentes.</li>
+        <li>Cálculos de Estabilidad.</li>
+        <li>Diseños de Sistemas de contención.</li>
+        <li>Diseño de vías.</li>
+        <li>Cálculos de estructuras.</li>
+        <li>Cómputos métricos.</li>
+        <li>Diseños de Mezclas de concreto y asfalto.</li>
+      </ul>
+      <p>Este departamento cuenta con un equipo de profesionales de alta experiencia en los diversos ramos para el desarrollo de cualquier proyecto los cuales cumplen con las normativas y tolerancias exigidas por los organismos nacionales e internacionales.</p>
+    </div>
+  ),
+  'Gerencia de Ingeniería': (
+    <div className="text-slate-600 text-sm space-y-3 text-left">
+      <p>En la Gerencia de Ingeniería se manejan todos aquellos aspectos relacionados con la ejecución de proyectos de obras civiles con un alto potencial de calidad y responsabilidad:</p>
+      <ul className="list-disc pl-5 space-y-1 text-slate-700">
+        <li>Construcción de Obras Civiles viales y estructurales.</li>
+        <li>Construcción de obras civiles menores.</li>
+        <li>Construcción de obras de contención de rocas y suelos.</li>
+        <li>Remodelaciones de interiores y exteriores.</li>
+        <li>Diseño e inspección de obras civiles.</li>
+        <li>Control de Calidad de Obras Civiles.</li>
+        <li>Control de Calidad de Movimiento y Estructuras de Tierra.</li>
+        <li>Diseño e inspección de obras hidráulicas.</li>
+      </ul>
+    </div>
+  ),
+  'Gerencia de Control y Obra': (
+    <div className="text-slate-600 text-sm space-y-3 text-left">
+      <p>En la Gerencia de Control de Calidad e Inspección de Obras Civiles se manejan todos aquellos aspectos relacionados con la evaluación, tanto en campo como en laboratorio, de proyectos de obras civiles buscando el aseguramiento y control de la calidad exigida por lo entes rectores del país.</p>
+      <ul className="list-disc pl-5 space-y-1 text-slate-700">
+        <li>Laboratorio de Concreto y Asfalto.</li>
+        <li>Control de Calidad de Obras Civiles metálicas.</li>
+        <li>Control de Calidad de Movimiento y Estructuras de Tierra.</li>
+        <li>Inspección de obras hidráulicas.</li>
+        <li>Control de calidad en frentes de excavaciones (túneles).</li>
+        <li>Evaluación de sistemas de contención.</li>
+      </ul>
+    </div>
+  )
+}
+
 export const OrgChartBlockComponent = ({ block }: OrgChartBlockProps) => {
   const { badge, headline, subheadline, topNode, adminNodes = [], operationalNodes = [] } = block
+  const [selectedNode, setSelectedNode] = useState<OrgNode | null>(null)
+
+  // Prevenir scroll cuando el modal está abierto
+  useEffect(() => {
+    if (selectedNode) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [selectedNode])
+
+  const handleClose = () => setSelectedNode(null)
+
+  // Normalizar título para buscar en el diccionario (en caso de que el CMS tenga espacios o diferencias leves)
+  const getDossierInfo = (title: string) => {
+    const keys = Object.keys(dossierData)
+    const normalizedTitle = title.toLowerCase().trim()
+    const match = keys.find(k => normalizedTitle.includes(k.toLowerCase().trim()) || k.toLowerCase().trim().includes(normalizedTitle))
+    return match ? dossierData[match] : <p className="text-slate-600 text-sm">Información no disponible en el dossier para este departamento.</p>
+  }
 
   return (
     <section className="py-20 bg-white border-b border-slate-200">
@@ -122,8 +220,9 @@ export const OrgChartBlockComponent = ({ block }: OrgChartBlockProps) => {
                 return (
                   <div
                     key={i}
+                    onClick={() => setSelectedNode(node)}
                     className={cn(
-                      'bg-slate-800 hover:bg-slate-700 border-2 p-5 rounded-2xl text-center transition-all group',
+                      'bg-slate-800 hover:bg-slate-700 border-2 p-5 rounded-2xl text-center transition-all group cursor-pointer',
                       colorMap[color] || colorMap.teal,
                     )}
                   >
@@ -156,6 +255,56 @@ export const OrgChartBlockComponent = ({ block }: OrgChartBlockProps) => {
           )}
         </div>
       </div>
+
+      {/* Modal Overlay */}
+      {selectedNode && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" 
+            onClick={handleClose}
+          />
+          
+          {/* Modal Content */}
+          <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b border-slate-100">
+              <div className="flex items-center gap-4">
+                {selectedNode.icon && (
+                  <div className={cn('w-12 h-12 rounded-xl flex items-center justify-center text-2xl', iconBgMap[selectedNode.color || 'teal'])}>
+                    <span className="material-icons-outlined">{selectedNode.icon}</span>
+                  </div>
+                )}
+                <div>
+                  <h3 className="text-xl font-display font-bold text-brand-navy">{selectedNode.title}</h3>
+                  {selectedNode.description && <p className="text-sm text-slate-500">{selectedNode.description}</p>}
+                </div>
+              </div>
+              <button 
+                onClick={handleClose}
+                className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors"
+              >
+                <span className="material-icons-outlined">close</span>
+              </button>
+            </div>
+            
+            {/* Body */}
+            <div className="p-6 overflow-y-auto">
+              {getDossierInfo(selectedNode.title)}
+            </div>
+            
+            {/* Footer */}
+            <div className="p-6 border-t border-slate-100 bg-slate-50 flex justify-end">
+              <button
+                onClick={handleClose}
+                className="px-6 py-2.5 bg-brand-navy text-white text-sm font-semibold rounded-xl hover:bg-brand-blue transition-colors"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
