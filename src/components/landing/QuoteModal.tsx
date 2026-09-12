@@ -23,14 +23,51 @@ export function QuoteModal() {
 
   const closeModal = () => setOpen(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setOpen(false)
-    setToast({
-      title: '¡Solicitud Enviada!',
-      msg: 'Un representante de Los Castros te contactará pronto.',
-    })
-    window.setTimeout(() => setToast(null), 4000)
+    setIsLoading(true)
+
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      name: formData.get('name'),
+      phone: formData.get('phone'),
+      service: formData.get('service'),
+      details: formData.get('details'),
+    }
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+
+      if (response.ok) {
+        setOpen(false)
+        setToast({
+          title: '¡Solicitud Enviada!',
+          msg: 'Un representante de Los Castros te contactará pronto.',
+        })
+        window.setTimeout(() => setToast(null), 4000)
+        e.currentTarget.reset()
+      } else {
+        setToast({
+          title: 'Error',
+          msg: 'Hubo un problema enviando tu solicitud. Por favor intenta de nuevo.',
+        })
+        window.setTimeout(() => setToast(null), 4000)
+      }
+    } catch (error) {
+      setToast({
+        title: 'Error',
+        msg: 'Hubo un problema de red. Por favor intenta de nuevo.',
+      })
+      window.setTimeout(() => setToast(null), 4000)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -61,6 +98,7 @@ export function QuoteModal() {
             <div>
               <label className="block text-xs font-bold text-castro-navy mb-1">Nombre Completo</label>
               <input
+                name="name"
                 type="text"
                 required
                 placeholder="Ej: Juan Pérez"
@@ -71,6 +109,7 @@ export function QuoteModal() {
               <div>
                 <label className="block text-xs font-bold text-castro-navy mb-1">Teléfono / WhatsApp</label>
                 <input
+                  name="phone"
                   type="tel"
                   required
                   placeholder="+58 412 0000000"
@@ -79,17 +118,18 @@ export function QuoteModal() {
               </div>
               <div>
                 <label className="block text-xs font-bold text-castro-navy mb-1">Tipo de Servicio</label>
-                <select className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-castro-green focus:outline-none">
-                  <option>Remodelación Residencial</option>
-                  <option>Obra Civil / Construcción</option>
-                  <option>Mantenimiento Estructural</option>
-                  <option>Otro</option>
+                <select name="service" className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-castro-green focus:outline-none">
+                  <option value="Remodelación Residencial">Remodelación Residencial</option>
+                  <option value="Obra Civil / Construcción">Obra Civil / Construcción</option>
+                  <option value="Mantenimiento Estructural">Mantenimiento Estructural</option>
+                  <option value="Otro">Otro</option>
                 </select>
               </div>
             </div>
             <div>
               <label className="block text-xs font-bold text-castro-navy mb-1">Detalles del Proyecto</label>
               <textarea
+                name="details"
                 rows={3}
                 placeholder="Describe brevemente lo que deseas realizar..."
                 className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-castro-green focus:outline-none"
@@ -97,9 +137,10 @@ export function QuoteModal() {
             </div>
             <button
               type="submit"
-              className="w-full bg-castro-yellow hover:bg-castro-yellowhover text-castro-navy font-extrabold py-3.5 rounded-xl transition shadow-lg text-sm cursor-pointer"
+              disabled={isLoading}
+              className="w-full bg-castro-yellow hover:bg-castro-yellowhover disabled:opacity-50 text-castro-navy font-extrabold py-3.5 rounded-xl transition shadow-lg text-sm cursor-pointer"
             >
-              Enviar Solicitud
+              {isLoading ? 'Enviando...' : 'Enviar Solicitud'}
             </button>
           </form>
         </div>
