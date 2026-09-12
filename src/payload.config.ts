@@ -1,4 +1,4 @@
-import { postgresAdapter } from '@payloadcms/db-postgres'
+import { postgresAdapter, sql } from '@payloadcms/db-postgres'
 import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
@@ -75,6 +75,19 @@ export default buildConfig({
       max: 10,
       ssl: process.env.POSTGRES_URL ? { rejectUnauthorized: false } : undefined,
     },
+    afterSchemaInit: [
+      async ({ adapter }) => {
+        try {
+          if (adapter.drizzle) {
+            await adapter.drizzle.execute(
+              sql`ALTER TABLE "footer" ADD COLUMN IF NOT EXISTS "show_text_brand" boolean DEFAULT true;`
+            )
+          }
+        } catch (e) {
+          console.error('Error adding show_text_brand column', e)
+        }
+      },
+    ],
   }),
 
   collections: [Pages, Posts, Media, Categories, Users, Proyectos],
