@@ -3,7 +3,7 @@
 import { useState } from 'react'
 
 interface WhatsAppFloatingButtonProps {
-  phones?: Array<{ label: string; number: string }>
+  phones?: Array<{ label: string; number: string; display?: string }>
 }
 
 const defaultPhones = [
