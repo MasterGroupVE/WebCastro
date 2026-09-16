@@ -54,9 +54,24 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
+  title: {
+    default: 'Construcciones Los Castros C.A. | Soluciones Integrales de Construcción e Ingeniería',
+    template: '%s | Construcciones Los Castros C.A.',
+  },
+  description:
+    'Empresa líder en desarrollo de obras civiles, infraestructura vial, edificaciones, servicios industriales y alquiler de maquinaria pesada en Venezuela.',
+  keywords: [
+    'Construcciones Los Castros',
+    'Obras Civiles',
+    'Infraestructura Vial',
+    'Alquiler de Maquinaria Pesada',
+    'Edificaciones',
+    'Construcción Venezuela',
+    'Ingeniería Civil',
+  ],
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
+    creator: '@loscastrosca',
   },
 }

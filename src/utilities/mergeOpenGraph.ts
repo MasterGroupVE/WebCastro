@@ -3,14 +3,15 @@ import { getServerSideURL } from './getURL'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description: 'An open-source website built with Payload and Next.js.',
+  description:
+    'Construcciones Los Castros C.A. - Empresa líder en remodelaciones residenciales, comerciales, obras civiles y mantenimiento de estructuras en Caracas y Venezuela.',
   images: [
     {
-      url: `${getServerSideURL()}/website-template-OG.webp`,
+      url: `${getServerSideURL()}/image-hero1.webp`,
     },
   ],
-  siteName: 'Payload Website Template',
-  title: 'Payload Website Template',
+  siteName: 'Construcciones Los Castros C.A.',
+  title: 'Construcciones Los Castros C.A. | Remodelación, Obras Civiles y Mantenimiento',
 }
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {

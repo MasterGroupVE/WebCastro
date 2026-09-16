@@ -25,9 +25,10 @@ dotenv.config({ path: path.resolve(dirname, '../.env') })
 
 // Captura cualquier variable de conexión a base de datos de Vercel o local
 const connectionString =
-  process.env.POSTGRES_URL ||
-  process.env.POSTGRES_URL_NON_POOLING ||
+  process.env.DATABASE_URL_UNPOOLED ||
   process.env.DATABASE_URL ||
+  process.env.POSTGRES_URL_NON_POOLING ||
+  process.env.POSTGRES_URL ||
   ''
 
 export default buildConfig({
@@ -73,7 +74,7 @@ export default buildConfig({
     pool: {
       connectionString,
       max: 10,
-      ssl: process.env.POSTGRES_URL ? { rejectUnauthorized: false } : undefined,
+      ssl: { rejectUnauthorized: false },
     },
   }),
 
