@@ -17,6 +17,7 @@ import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import dotenv from 'dotenv'
+import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -76,6 +77,7 @@ export default buildConfig({
       max: 10,
       ssl: { rejectUnauthorized: false },
     },
+    prodMigrations: migrations,
   }),
 
   collections: [Pages, Posts, Media, Categories, Users, Proyectos],
