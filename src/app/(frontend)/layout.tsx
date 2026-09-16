@@ -10,6 +10,7 @@ import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { QuoteModal } from '@/components/landing/QuoteModal'
+import { WhatsAppFloatingButton } from '@/components/landing/WhatsAppFloatingButton'
 import { SmoothScrollHandler } from '@/components/SmoothScrollHandler'
 import { draftMode } from 'next/headers'
 
@@ -44,6 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           {children}
           <Footer />
           <QuoteModal />
+          <WhatsAppFloatingButton />
         </Providers>
       </body>
     </html>
