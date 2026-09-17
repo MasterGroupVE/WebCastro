@@ -5,6 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "prebuild": "node scripts/clean-dev-migrations.mjs",
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "payload:migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
