@@ -21,10 +21,39 @@ interface HeroBlockProps {
     ratingScore?: string
     ratingText?: string
     avatars?: Array<{ image?: any }>
+    features?: Array<{ text: string }>
     // legacy props fallback
     ctaText?: string
     ctaLink?: string
   }
+}
+
+function parseSubheadline(subheadline?: string, features?: Array<{ text: string }>) {
+  const checklist: string[] = []
+  if (features && Array.isArray(features)) {
+    features.forEach((f) => {
+      if (f && f.text) checklist.push(f.text)
+    })
+  }
+
+  if (!subheadline) return { paragraphs: [], checklist }
+
+  const rawLines = subheadline.split('\n').map((l) => l.trim()).filter(Boolean)
+  const paragraphs: string[] = []
+  const bulletRegex = /^([\-\*•✓✔]|\d+[\.\)\-])\s*(.*)$/
+
+  for (const line of rawLines) {
+    const match = line.match(bulletRegex)
+    if (match) {
+      checklist.push(match[2] || line)
+    } else if (line.toLowerCase().startsWith('objetivo') && (line.includes(':') || line.includes('-'))) {
+      checklist.push(line)
+    } else {
+      paragraphs.push(line)
+    }
+  }
+
+  return { paragraphs, checklist }
 }
 
 const defaultAvatars = [
@@ -97,11 +126,39 @@ export const HeroBlockComponent: React.FC<HeroBlockProps> = ({ block }) => {
             )}
           </h1>
 
-          {subheadline && (
-            <p className="text-lg sm:text-xl text-slate-200 mb-8 font-normal leading-relaxed max-w-2xl">
-              {subheadline}
-            </p>
-          )}
+          {(() => {
+            const { paragraphs, checklist } = parseSubheadline(subheadline, block.features)
+            return (
+              <>
+                {paragraphs.length > 0 && (
+                  <div className="space-y-4 mb-6 max-w-2xl">
+                    {paragraphs.map((p, idx) => (
+                      <p
+                        key={idx}
+                        className="text-base sm:text-lg text-slate-200 font-normal leading-relaxed text-justify hyphens-auto"
+                      >
+                        {p}
+                      </p>
+                    ))}
+                  </div>
+                )}
+
+                {checklist.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8 max-w-2xl">
+                    {checklist.map((item, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-start gap-3 p-3.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 text-white shadow-sm hover:bg-white/15 transition duration-200"
+                      >
+                        <i className="fa-solid fa-circle-check text-castro-yellow text-lg mt-0.5 shrink-0"></i>
+                        <span className="text-sm font-semibold leading-snug text-slate-100">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            )
+          })()}
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-10">
             {primaryCtaText && (
