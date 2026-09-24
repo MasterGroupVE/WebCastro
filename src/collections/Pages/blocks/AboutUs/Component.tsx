@@ -116,7 +116,7 @@ export const AboutUsBlockComponent: React.FC<AboutUsBlockProps> = ({ block }) =>
 
             {/* Floating Guarantee Badge */}
             {guaranteeBadgeTitle && (
-              <div className="absolute -bottom-6 -right-2 bg-white p-4 rounded-xl shadow-2xl hidden sm:flex items-center gap-3 border border-slate-100">
+              <div className="absolute -bottom-14 sm:-bottom-16 -right-2 sm:-right-4 bg-white p-4 rounded-xl shadow-2xl hidden sm:flex items-center gap-3 border border-slate-100 z-10">
                 <div className="w-12 h-12 rounded-full bg-emerald-100 text-castro-green flex items-center justify-center font-bold text-xl">
                   <i className="fa-solid fa-shield-halved"></i>
                 </div>
@@ -142,11 +142,11 @@ export const AboutUsBlockComponent: React.FC<AboutUsBlockProps> = ({ block }) =>
             </h2>
 
             {paragraph1 && (
-              <p className="text-slate-600 leading-relaxed text-base">{paragraph1}</p>
+              <p className="text-slate-600 leading-relaxed text-base text-justify hyphens-auto">{paragraph1}</p>
             )}
 
             {paragraph2 && (
-              <p className="text-slate-600 leading-relaxed text-base">{paragraph2}</p>
+              <p className="text-slate-600 leading-relaxed text-base text-justify hyphens-auto">{paragraph2}</p>
             )}
 
             {features && features.length > 0 && (

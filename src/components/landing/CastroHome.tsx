@@ -209,7 +209,7 @@ export function CastroHome() {
                 </div>
               </div>
 
-              <div className="absolute -bottom-6 -right-2 bg-white p-4 rounded-xl shadow-2xl hidden sm:flex items-center gap-3 border border-slate-100">
+              <div className="absolute -bottom-14 sm:-bottom-16 -right-2 sm:-right-4 bg-white p-4 rounded-xl shadow-2xl hidden sm:flex items-center gap-3 border border-slate-100 z-10">
                 <div className="w-12 h-12 rounded-full bg-emerald-100 text-castro-green flex items-center justify-center font-bold text-xl">
                   <i className="fa-solid fa-shield-halved"></i>
                 </div>
@@ -230,13 +230,13 @@ export function CastroHome() {
                 Los Profesionales Detrás de Cada Renovación y Estructura
               </h2>
 
-              <p className="text-slate-600 leading-relaxed text-base">
+              <p className="text-slate-600 leading-relaxed text-base text-justify hyphens-auto">
                 En <strong className="text-castro-navy">Construcciones Los Castros C.A.</strong> somos un equipo
                 apasionado de ingenieros, arquitectos y maestros de obra dedicados a transformar espacios y erigir
                 estructuras sólidas. Cuidamos cada detalle desde el diseño inicial hasta los acabados finales.
               </p>
 
-              <p className="text-slate-600 leading-relaxed text-base">
+              <p className="text-slate-600 leading-relaxed text-base text-justify hyphens-auto">
                 Nuestra filosofía se basa en tres pilares: transparencia presupuestaria, el uso de materiales de
                 primera calidad y el cumplimiento riguroso de los tiempos de entrega.
               </p>

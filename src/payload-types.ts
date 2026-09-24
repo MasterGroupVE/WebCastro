@@ -73,6 +73,7 @@ export interface Config {
     categories: Category;
     users: User;
     proyectos: Proyecto;
+    consultas: Consulta;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -96,6 +97,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     proyectos: ProyectosSelect<false> | ProyectosSelect<true>;
+    consultas: ConsultasSelect<false> | ConsultasSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -809,6 +811,27 @@ export interface Proyecto {
   createdAt: string;
 }
 /**
+ * Solicitudes y consultas recibidas desde la modal de asesoría de la web.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "consultas".
+ */
+export interface Consulta {
+  id: number;
+  nombre: string;
+  telefono: string;
+  servicio: string;
+  detalles?: string | null;
+  estado: 'pendiente' | 'contactado' | 'cotizado' | 'ganado' | 'descartado';
+  origen?: string | null;
+  /**
+   * Notas del equipo comercial o de atención sobre el cliente o acuerdos.
+   */
+  notasAdmin?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
@@ -1186,6 +1209,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'proyectos';
         value: number | Proyecto;
+      } | null)
+    | ({
+        relationTo: 'consultas';
+        value: number | Consulta;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1849,6 +1876,21 @@ export interface ProyectosSelect<T extends boolean = true> {
   tecnologia?: T;
   cliente?: T;
   ano?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "consultas_select".
+ */
+export interface ConsultasSelect<T extends boolean = true> {
+  nombre?: T;
+  telefono?: T;
+  servicio?: T;
+  detalles?: T;
+  estado?: T;
+  origen?: T;
+  notasAdmin?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -10,6 +10,7 @@ import Pages from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Proyectos } from './collections/Proyectos'
+import { Consultas } from './collections/Consultas'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins as defaultPlugins } from './plugins' // Renombrado para no sobrescribir el arreglo
@@ -81,7 +82,7 @@ export default buildConfig({
     prodMigrations: migrations,
   }),
 
-  collections: [Pages, Posts, Media, Categories, Users, Proyectos],
+  collections: [Pages, Posts, Media, Categories, Users, Proyectos, Consultas],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
 

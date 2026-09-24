@@ -7,8 +7,8 @@ interface WhatsAppFloatingButtonProps {
 }
 
 const defaultPhones = [
-  { label: 'Atención 1', number: '584129643616', display: '+58 (412) 964-3616' },
-  { label: 'Atención 2', number: '584143904751', display: '+58 (414) 390-4751' },
+  { label: 'Atención 1', number: '584220387323', display: '+58 (422) 038-7323' },
+  { label: 'Atención 2', number: '584129643616', display: '+58 (412) 964-3616' },
 ]
 
 export function WhatsAppFloatingButton({ phones = defaultPhones }: WhatsAppFloatingButtonProps) {
