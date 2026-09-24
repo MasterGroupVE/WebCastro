@@ -29,7 +29,8 @@ export function QuoteModal() {
     e.preventDefault()
     setIsLoading(true)
 
-    const formData = new FormData(e.currentTarget)
+    const form = e.currentTarget
+    const formData = new FormData(form)
     const data = {
       name: formData.get('name'),
       phone: formData.get('phone'),
@@ -45,21 +46,23 @@ export function QuoteModal() {
       })
 
       if (response.ok) {
+        form.reset()
         setOpen(false)
         setToast({
           title: '¡Solicitud Enviada!',
           msg: 'Un representante de Los Castros te contactará pronto.',
         })
         window.setTimeout(() => setToast(null), 4000)
-        e.currentTarget.reset()
       } else {
+        const errorData = await response.json().catch(() => ({}))
         setToast({
           title: 'Error',
-          msg: 'Hubo un problema enviando tu solicitud. Por favor intenta de nuevo.',
+          msg: errorData.message || 'Hubo un problema enviando tu solicitud. Por favor intenta de nuevo.',
         })
         window.setTimeout(() => setToast(null), 4000)
       }
     } catch (error) {
+      console.error('[QuoteModal] Error enviando consulta:', error)
       setToast({
         title: 'Error',
         msg: 'Hubo un problema de red. Por favor intenta de nuevo.',
